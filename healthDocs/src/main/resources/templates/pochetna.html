@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Е-лекување</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <!--   <link rel="stylesheet" href="../static/css/styles.css">-->
+
+
+       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+       <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+   </head>
+   <body>
+   <hr class="linija1" size="8" width="100%"  color="red">
+   <div class="meni">
+
+       <h1 class="logo">Е - лекување</h1>
+       <div id="date-div"></div>
+   </div>
+   <hr class="linija1" size="8" width="100%"  color="red">
+
+   <div class="vl"></div>
+   <h1 id="naslov">Добредојдовте на веб порталот за закажување <br/> и преглед на здравствени термини</h1>
+   <br/>
+   <h2 id="naslov2">Одберете ја улогата со која сакате да се најавите на системот:</h2>
+   <button class="button button1" onclick="location.href='http://localhost/patient/login'" type="button">
+       Пациент</button>
+   <button class="button button2" onclick="location.href='https://localhost/doctor/login'" type="button">
+       Доктор</button>
+   <button class="button button2" onclick="location.href='https://localhost/admin/login'" type="button">
+       Администратор</button>
+   <img class="slika" src="../images/slika.jpg" alt="slika">
+   </body>
+   </html>
+   <script type="text/javascript">
+       const dateDiv = document.getElementById('date-div');
+
+       function myDateFunction() {
+           const now = new Date();
+           const nowStr = now.toLocaleString('ru-RU');
+           dateDiv.innerHTML = nowStr;
+       }
+       setInterval(myDateFunction, 1000);
+   </script>
