@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Закажи термин</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <!--    <link rel="stylesheet" href="../static/css/styles.css">-->
+
+       </head>
+       <body>
+           <hr class="linija1" size="8" width="100%" color="red">
+           <div class="meni">
+               <a href="http://localhost">
+               <h1 class="logo">Е - лекување</h1></a>
+               <div id="date-div"></div>
+           </div>
+           <hr class="linija1" size="8" width="100%"  color="red">
+           <h2 class="vnesete">Закажете термин</h2>
+           <hr id="linija" size="8" width="86%" color="red">
+
+           <div class="vl" id="vert"></div>
+           <img class="slika" id="slika1" src="../../images/slika.jpg" alt="slika">
+
+
+           <form action="/doctor/termini/add" method="post">
+           <div id="pacient">
+               <label>Изберете пациент</label>
+               <br/>
+               <select id="dropdown" name="dropdown">
+                   <th:block th:each="patient : ${patients}">
+                       <option th:if="${patient} != null"
+                               th:value="${patient.getId()}"
+                               th:text="${patient.getEMBG()}+' '+${patient.getFirstName()} + ' '+${patient.getLastName()}"
+                       ></option>
+                   </th:block>
+               </select>
+           </div>
+
+           <div class="row">
+               <div class='col-md-6'>
+                   <br/>
+                   <div class="form-group" id="termin">
+    <!--                   <label class="control-label">Датум и време на преглед</label>-->
+<!--                   <p>Внесете датум и време на преглед </p>-->
+                   <label for="datum">Внесете датум и време на преглед (пр. 2021/02/28 12:15)</label>
+                   <input type="text" id="datum" name="birthdaytime" class="uredi">
+                   <!-- Sample format 2011/05/09 12:15 -->
+               </div>
+           </div>
+       </div>
+        <div class="lok">
+            <label for="description">Локација на прегледот</label>
+            <br/>
+            <input type="text" id="description" name="description" class="uredi">
+        </div>
+
+
+
+       <input type="submit" value="Закажи термин" id="kopce" class="kopce1">
+       </form>
+   </body>
+   </html>
+   <script type="text/javascript">
+       const dateDiv = document.getElementById('date-div');
+
+       function myDateFunction() {
+           const now = new Date();
+           dateDiv.innerHTML = now.toLocaleString('ru-RU');
+       }
+       setInterval(myDateFunction, 1000);
+   </script>
+
+
