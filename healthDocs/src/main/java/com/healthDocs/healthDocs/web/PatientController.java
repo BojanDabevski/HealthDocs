@@ -1,9 +1,9 @@
-package com.elekuvanje.elekuvanje.web;
+package com.healthDocs.healthDocs.web;
 
-import com.elekuvanje.elekuvanje.model.Termin;
-import com.elekuvanje.elekuvanje.model.User;
-import com.elekuvanje.elekuvanje.repository.UserRepository;
-import com.elekuvanje.elekuvanje.service.TerminService;
+
+import com.healthDocs.healthDocs.model.Termin;
+import com.healthDocs.healthDocs.repository.UserRepository;
+import com.healthDocs.healthDocs.service.TerminService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;

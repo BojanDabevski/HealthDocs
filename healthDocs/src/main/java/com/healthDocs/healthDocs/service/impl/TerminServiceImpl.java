@@ -1,6 +1,7 @@
 package com.healthDocs.healthDocs.service.impl;
 
 import com.healthDocs.healthDocs.model.Termin;
+import com.healthDocs.healthDocs.model.TerminType;
 import com.healthDocs.healthDocs.model.User;
 import com.healthDocs.healthDocs.repository.TerminRepository;
 import com.healthDocs.healthDocs.service.TerminService;
@@ -27,8 +28,8 @@ public class TerminServiceImpl implements TerminService {
     }
 
     @Override
-    public void createTermin(User doctor, User patient, LocalDateTime dateTime, String location) {
-        this.terminRepository.save(new Termin(doctor,patient,dateTime,location));
+    public void createTermin(User doctor, User patient, LocalDateTime dateTime, String location, TerminType type) {
+        this.terminRepository.save(new Termin(doctor,patient,dateTime,location,type));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder=passwordEncoder;
     }
     @Override
-    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String EMBG, Role role)  {
+    public User register(String username, String password, String repeatPassword, String firstName, String lastName, String EMBG, Role role,Boolean insurance)  {
         if(username==null || username.isEmpty() || password==null || password.isEmpty()){
             return null;
         }
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         }
         if(this.userRepository.findByUsername(username).isPresent() || !this.userRepository.findByUsername(username).isEmpty())
             return null;
-        User user=new User(EMBG,username,password,firstName,lastName,role);
+        User user=new User(EMBG,username,password,firstName,lastName,role,insurance);
         return this.userRepository.save(user);
     }
 
@@ -37,4 +37,6 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(s).orElseThrow(()->new UsernameNotFoundException(s));
     }
+
+
 }

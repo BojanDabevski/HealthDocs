@@ -1,12 +1,13 @@
-package com.elekuvanje.elekuvanje.web;
+package com.healthDocs.healthDocs.web;
 
-import com.elekuvanje.elekuvanje.exceptions.InvalidArgumentsException;
-import com.elekuvanje.elekuvanje.exceptions.NoSuchUserException;
-import com.elekuvanje.elekuvanje.model.Termin;
-import com.elekuvanje.elekuvanje.model.User;
-import com.elekuvanje.elekuvanje.repository.UserRepository;
-import com.elekuvanje.elekuvanje.service.TerminService;
 
+import com.healthDocs.healthDocs.exceptions.InvalidArgumentsException;
+import com.healthDocs.healthDocs.exceptions.NoSuchUserException;
+import com.healthDocs.healthDocs.model.Termin;
+import com.healthDocs.healthDocs.model.TerminType;
+import com.healthDocs.healthDocs.model.User;
+import com.healthDocs.healthDocs.repository.UserRepository;
+import com.healthDocs.healthDocs.service.TerminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,8 @@ import java.util.stream.Collectors;
 public class DoctorController {
     private final TerminService terminService;
     private final UserRepository userRepository;
+    private TerminType type;
+
     public DoctorController(TerminService terminService,UserRepository userRepository){
         this.terminService=terminService;
         this.userRepository=userRepository;
@@ -115,7 +118,7 @@ public class DoctorController {
         User patient=this.userRepository.findById(dropdown).get();
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime datum=LocalDateTime.parse(birthdaytime,formatter);
-        this.terminService.createTermin(user,patient,datum,description);
+        this.terminService.createTermin(user,patient,datum,description,type);
         return "redirect:/doctor/termini";
     }
 

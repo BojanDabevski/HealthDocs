@@ -20,15 +20,20 @@ public class Termin {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime dateAndTime;
     private String location;
+    @Enumerated(value= EnumType.STRING)
+    private TerminType type;
     public Termin(){
 
     }
-
-    public Termin(User doctor, User patient, LocalDateTime dateAndTime, String location) {
+    public TerminType getTerminType() {
+        return type;
+    }
+    public Termin(User doctor, User patient, LocalDateTime dateAndTime, String location, TerminType type) {
         this.doctor = doctor;
         this.patient = patient;
         this.dateAndTime = dateAndTime;
         this.location = location;
+        this.type=type;
     }
 
     public User getDoctor() {
@@ -46,6 +51,8 @@ public class Termin {
     public void setId(Long id) {
         Id = id;
     }
+
+
 
 
     public LocalDateTime getDateAndTime() {

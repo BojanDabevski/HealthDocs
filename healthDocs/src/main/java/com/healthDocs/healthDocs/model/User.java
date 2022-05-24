@@ -21,6 +21,7 @@ public class User implements UserDetails {
     private String lastName;
     @Enumerated(value= EnumType.STRING)
     private Role role;
+    private Boolean insurance;
 
     private boolean isAccountNonExpired=true;
     private boolean isAccountNonLocked=true;
@@ -29,11 +30,9 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public Role getRole() {
-        return role;
-    }
 
-    public User(String EMBG, String username, String password, String firstName, String lastName, Role role) {
+
+    public User(String EMBG, String username, String password, String firstName, String lastName, Role role, Boolean insurance) {
 
         this.EMBG = EMBG;
         this.username = username;
@@ -41,6 +40,7 @@ public class User implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role=role;
+        this.insurance=insurance;
     }
 
     public Long getId() {
