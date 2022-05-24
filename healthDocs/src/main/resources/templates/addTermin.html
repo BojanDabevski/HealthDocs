@@ -54,6 +54,11 @@
             <br/>
             <input type="text" id="description" name="description" class="uredi">
         </div>
+               <select name="type">
+                   <div>Изберете тип на преглед</div>
+                   <option th:each="termini : ${T(com.healthDocs.healthDocs.model.TerminType.values()}"
+                           th:value="${termini}" th:text="${termini}"></option>
+               </select>
 
 
 

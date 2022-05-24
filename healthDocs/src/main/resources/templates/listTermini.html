@@ -34,6 +34,7 @@
           <th>Презиме на пациент</th>
           <th>Датум и време</th>
           <th>Детали за локација</th>
+          <th>Тип на термин</th>
       </tr>
       <th:block th:each="termin : ${terminList}">
           <tr>
@@ -42,6 +43,7 @@
               <td th:text="${termin.getPatient().getLastName()}"></td>
               <td th:text="${termin.getDateAndTime()}"></td>
               <td th:text="${termin.getLocation()}"></td>
+              <td th:text="${termin.getTerminType()}"></td>
               <td><a th:href="@{'https://localhost/doctor/termin/deleteTermin?terminID={id}' (id=${termin.getId()})}">Delete</a></td>
               <td><a th:href="@{'https://localhost/doctor/termin/editTermin?terminID={id}' (id=${termin.getId()})}">Edit</a></td>
           </tr>

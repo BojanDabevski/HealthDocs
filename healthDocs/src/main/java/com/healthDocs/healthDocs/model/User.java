@@ -29,7 +29,9 @@ public class User implements UserDetails {
     private boolean isEnabled=true;
     public User() {
     }
-
+    public Role getRole() {
+        return role;
+    }
 
 
     public User(String EMBG, String username, String password, String firstName, String lastName, Role role, Boolean insurance) {
