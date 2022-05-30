@@ -42,7 +42,8 @@ private final UserRepository userRepository;
     public String register(Model model){
         return "registracija";
     }
-
+    
+    
 
 
     @GetMapping(value="/termini")
