@@ -12,6 +12,7 @@ public interface TerminService {
     List<Termin> listAll();
     void deleteById(Long Id);
     void createTermin(User doctor, User patient, LocalDateTime dateTime, String location, TerminType type);
+    Termin getById(Long Id);
     List<Termin> findBySetByDoctorId(Long doctorId);
     List<Termin> findBySetForPatientId(Long patientId);
 

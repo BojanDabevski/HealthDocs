@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import com.healthDocs.healthDocs.model.TerminType;
 import com.healthDocs.healthDocs.model.User;
 import com.healthDocs.healthDocs.repository.UserRepository;
 import com.healthDocs.healthDocs.service.TerminService;
+import com.healthDocs.healthDocs.web.rest.responses.DeleteTerminResponse;
 
 @RestController
 @RequestMapping("api/doctor")
@@ -36,7 +38,7 @@ public class RESTDoctorController {
 		this.userRepository = userRepository;
 	}
 
-	 @PostMapping(value="/termini/add")
+	 @PostMapping(value="/termini/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<List<Termin>> postAddTermini( @RequestParam() String birthdaytime,@RequestParam() Long dropdown, HttpServletRequest request,@RequestParam() String description,@RequestParam() TerminType terminType){
 
 
@@ -52,24 +54,28 @@ public class RESTDoctorController {
 	    }
 
 
-	   @GetMapping(value="/termin/deleteTermin")
-	   public ResponseEntity<String> deleteTermin(@RequestParam(required = true) Long terminID,HttpServletRequest request){
+	   @GetMapping(value="/termin/deleteTermin", produces = MediaType.APPLICATION_JSON_VALUE)
+	   public ResponseEntity<DeleteTerminResponse> deleteTermin(@RequestParam(required = true) Long terminID,HttpServletRequest request){
+		   DeleteTerminResponse deleteTerminResponse = null;
 	       User user=(User) request.getSession().getAttribute("doctor");
 	       List<Termin> termins=this.terminService.
 	               findBySetByDoctorId(user.getId()).stream().filter(x->x.getId()==terminID).
 	               collect(Collectors.toList()); // check if Termin belongs to doctor
 	       if(termins.isEmpty()){
 	            //termin doesn't belong to doctor
-	    	   return new ResponseEntity<>("false",HttpStatus.OK);
+	    	   deleteTerminResponse = new DeleteTerminResponse(false);
+	           return new ResponseEntity<>(deleteTerminResponse,HttpStatus.OK);
 	       }else{
 	           this.terminService.deleteById(terminID);
+	           deleteTerminResponse = new DeleteTerminResponse(false);
+	           return new ResponseEntity<>(deleteTerminResponse,HttpStatus.OK);
 
 	       }
-	       return new ResponseEntity<>("true",HttpStatus.OK);
+	       
 
 	   }
 	   
-	   @PostMapping(value="/login")
+	   @PostMapping(value="/login",  produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<String> postLoginPage(HttpServletRequest request){
 	        User user=null;
 	        try {

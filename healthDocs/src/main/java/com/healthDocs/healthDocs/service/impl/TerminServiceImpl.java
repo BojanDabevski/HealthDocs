@@ -42,5 +42,9 @@ public class TerminServiceImpl implements TerminService {
         return this.terminRepository.findAll().stream().filter(x->x.getPatient().getId()==patientId).collect(Collectors.toList());
 
     }
+	@Override
+	public Termin getById(Long Id) {
+		return this.terminRepository.getOne(Id);
+	}
 
 }
