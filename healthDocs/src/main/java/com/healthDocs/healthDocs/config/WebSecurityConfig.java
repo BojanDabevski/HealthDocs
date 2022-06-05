@@ -25,9 +25,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.headers().frameOptions().sameOrigin(); // Bez ova ne ja prikazhuva h2 konzolata u browser
             http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/", "/doctor", "/doctor/**", "/css/**", "/images/**", "/js/**").permitAll()
+                    .antMatchers("/", "/doctor", "/doctor/**", "/css/**", "/images/**", "/js/**", "/h2", "/h2/**").permitAll()
                     .antMatchers("/patient/**").hasRole("PATIENT")
                     .anyRequest()
                     .authenticated()

@@ -24,9 +24,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.headers().frameOptions().sameOrigin();
             http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
+                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2", "/h2/**").permitAll()
                     .antMatchers("/doctor/**").hasRole("DOCTOR")
                     .anyRequest()
                     .authenticated()
