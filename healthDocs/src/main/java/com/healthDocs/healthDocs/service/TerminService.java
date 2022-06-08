@@ -15,5 +15,6 @@ public interface TerminService {
     Termin getById(Long Id);
     List<Termin> findBySetByDoctorId(Long doctorId);
     List<Termin> findBySetForPatientId(Long patientId);
-
+    Optional<Termin> findById(Long terminId);
+    Termin save(Termin termin);
 }

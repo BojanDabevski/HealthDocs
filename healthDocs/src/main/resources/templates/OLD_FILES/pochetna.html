@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthDocs</title>
+    <th:block th:replace="TemplateFile :: scripts"></th:block>
+    </head>
+   <body>
+
+   <div class="container">
+
+   </div>
+
+
+
+
+   <hr class="linija1" size="8" width="100%"  color="red">
+   <div class="meni">
+
+       <h1 class="logo">HealthDocs</h1>
+       <div id="date-div"></div>
+   </div>
+   <hr class="linija1" size="8" width="100%"  color="red">
+
+   <div class="vl"></div>
+   <h1 id="naslov">Добредојдовте на веб порталот за закажување <br/> и преглед на здравствени термини</h1>
+   <br/>
+   <h2 id="naslov2">Одберете ја улогата со која сакате да се најавите на системот:</h2>
+   <button class="button button1" onclick="location.href='http://localhost/patient/login'" type="button">
+       Пациент</button>
+   <button class="button button2" onclick="location.href='https://localhost/doctor/login'" type="button">
+       Доктор</button>
+   <button class="button button2" onclick="location.href='https://localhost/admin/login'" type="button">
+       Администратор</button>
+   <img class="slika" src="../images/slika.jpg" alt="slika">
+   </body>
+   </html>
+   <script type="text/javascript">
+       const dateDiv = document.getElementById('date-div');
+
+       function myDateFunction() {
+           const now = new Date();
+           const nowStr = now.toLocaleString('ru-RU');
+           dateDiv.innerHTML = nowStr;
+       }
+       setInterval(myDateFunction, 1000);
+   </script>

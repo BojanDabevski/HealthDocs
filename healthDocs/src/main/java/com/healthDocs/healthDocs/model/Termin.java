@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -52,13 +53,14 @@ public class Termin {
         Id = id;
     }
 
-
-
-
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
     }
 
+    public String getFormattedDateAndTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dateAndTime.format(formatter);
+    }
     public void setDateAndTime(LocalDateTime dateAndTime) {
         this.dateAndTime = dateAndTime;
     }

@@ -28,7 +28,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.headers().frameOptions().sameOrigin(); // Bez ova ne ja prikazhuva h2 konzolata u browser
             http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/", "/doctor", "/doctor/**", "/css/**", "/images/**", "/js/**", "/h2", "/h2/**").permitAll()
+                    .antMatchers("/", "/doctor", "/doctor/**", "/css/**", "/images/**", "/data/**",
+                            "/js/**", "/h2", "/h2/**", "/bootstrap-5.2.0-beta1-dist/**").permitAll()
                     .antMatchers("/patient/**").hasRole("PATIENT")
                     .anyRequest()
                     .authenticated()
@@ -40,21 +41,21 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/patient/processLogin")
                     .and()
                     .logout()
-                    .logoutUrl("/patient/logout")
+                    .logoutUrl("/logout")
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/patient/login");
+                    .logoutSuccessUrl("/");
 
 
         }
-
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.authenticationProvider(this.customPatientAuthenticationProvider);
         }
-    }
+
+}
 
 
 

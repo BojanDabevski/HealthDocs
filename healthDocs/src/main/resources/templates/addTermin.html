@@ -1,79 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Закажи термин</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <!--    <link rel="stylesheet" href="../static/css/styles.css">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додади термин</title>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/flatpickr/flatpickr.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/flatpickr/flatpickr.js}"></script>
+</head>
 
-       </head>
-       <body>
-           <hr class="linija1" size="8" width="100%" color="red">
-           <div class="meni">
-               <a href="http://localhost">
-               <h1 class="logo">HealthDocs</h1></a>
-               <div id="date-div"></div>
-           </div>
-           <hr class="linija1" size="8" width="100%"  color="red">
-           <h2 class="vnesete">Закажете термин</h2>
-           <hr id="linija" size="8" width="86%" color="red">
-
-           <div class="vl" id="vert"></div>
-           <img class="slika" id="slika1" src="../../images/slika.jpg" alt="slika">
-
-
-           <form action="/doctor/termini/add" method="post">
-           <div id="pacient">
-               <label>Изберете пациент</label>
-               <br/>
-               <select id="dropdown" name="dropdown">
-                   <th:block th:each="patient : ${patients}">
-                       <option th:if="${patient} != null"
-                               th:value="${patient.getId()}"
-                               th:text="${patient.getEMBG()}+' '+${patient.getFirstName()} + ' '+${patient.getLastName()}"
-                       ></option>
-                   </th:block>
-               </select>
-           </div>
-
-           <div class="row">
-               <div class='col-md-6'>
-                   <br/>
-                   <div class="form-group" id="termin">
-    <!--                   <label class="control-label">Датум и време на преглед</label>-->
-<!--                   <p>Внесете датум и време на преглед </p>-->
-                   <label for="datum">Внесете датум и време на преглед (пр. 2021/02/28 12:15)</label>
-                   <input type="text" id="datum" name="birthdaytime" class="uredi">
-                   <!-- Sample format 2011/05/09 12:15 -->
-               </div>
-           </div>
-       </div>
-        <div class="lok">
-            <label for="description">Локација на прегледот</label>
-            <br/>
-            <input type="text" id="description" name="description" class="uredi">
+<body>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        <div class="d-flex me-4">
+            <a th:href="@{/logout}" class="btn btn-outline-info">Одјави се</a>
         </div>
-               <select name="type">
-                   <div>Изберете тип на преглед</div>
-                   <option th:each="termini : ${T(com.healthDocs.healthDocs.model.TerminType.values()}"
-                           th:value="${termini}" th:text="${termini}"></option>
-               </select>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center text-center mt-3">
+            <h4 th:unless="${editMode}" class="w-75">Закажете термин:</h4>
+            <h4 th:if="${editMode}" class="w-75">Променете термин:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center mt-3">
+<!--==============================================================================================================-->
+                <th:block th:if="${editMode}">
+                    <form th:action="@{/doctor/termin/editTermin}" method="post" class="w-50">
+                        <div class="mb-3">
+                            <label for="patientId" class="form-label">Пациент</label>
+                            <select disabled class="form-select" name="patientId" id="patientId">
+                                <option th:value="${terminData.getPatient().getId()}"
+                                        th:text="${terminData.getPatient().getEmbgAndFullName()}"
+                                ></option>
+                            </select>
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Внесете датум и време на преглед</label>
+                            <input th:value="${terminData.getFormattedDateAndTime()}" type="text" class="form-control bg-white" id="date" name="date">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Детали за локација на прегледот</label>
+                            <input th:value="${terminData.getLocation()}" type="text" class="form-control" id="description" name="description">
+                        </div>
 
-       <input type="submit" value="Закажи термин" id="kopce" class="kopce1">
-       </form>
-   </body>
-   </html>
-   <script type="text/javascript">
-       const dateDiv = document.getElementById('date-div');
+                        <div class="mb-3">
+                            <label for="terminType" class="form-label">Тип на преглед</label>
+                            <select th:value="${terminData.getTerminType()}" class="form-select" name="terminType" id="terminType">
+                                <option th:each="termini : ${terminType}" th:value="${termini}"
+                                        th:text='${termini.toString().replace("_", " ")}'></option>
+                            </select>
+                            <script>
+                                $('#terminType').val($('#terminType').attr('value'));
+                            </script>
+                        </div>
+                        <input type="hidden" name="terminID" th:value="${terminData.getId()}">
+                        <button type="submit" class="btn btn-success w-100 mt-4">Закажи термин</button>
+                    </form>
+                </th:block>
+<!--==============================================================================================================-->
+                <th:block th:unless="${editMode}">
+                    <form th:action="@{/doctor/termini/add}" method="post" class="w-50">
+                        <div class="mb-3">
+                            <label for="patientId" class="form-label">Пациент</label>
+                            <select class="form-select" name="patientId" id="patientId">
+                                <option selected disabled>-- Изберете пациент --</option>
+                                <th:block th:each="patient : ${patients}">
+                                    <option th:if="${patient} != null"
+                                            th:value="${patient.getId()}"
+                                            th:text="${patient.getEmbgAndFullName()}"
+                                    ></option>
+                                </th:block>
+                            </select>
+                        </div>
 
-       function myDateFunction() {
-           const now = new Date();
-           dateDiv.innerHTML = now.toLocaleString('ru-RU');
-       }
-       setInterval(myDateFunction, 1000);
-   </script>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Внесете датум и време на преглед</label>
+                            <input type="text" class="form-control bg-white" id="date" name="date">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Детали за локација на прегледот</label>
+                            <input type="text" class="form-control" id="description" name="description">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="terminType" class="form-label">Тип на преглед</label>
+                            <select class="form-select" name="terminType" id="terminType">
+                                <option th:each="termini : ${terminType}"
+                                        th:value="${termini}" th:text='${termini.toString().replace("_", " ")}'></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 mt-4">Закажи термин</button>
+                    </form>
+                </th:block>
+<!--==============================================================================================================-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $("#date").flatpickr({
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        time_24hr: true,
+        minDate: "today"
+    });
+</script>
+</html>

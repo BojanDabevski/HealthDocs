@@ -65,6 +65,10 @@ public class User implements UserDetails {
         return username;
     }
 
+    public String getEmbgAndFullName() {
+        return this.EMBG + " " + this.firstName + " " + this.lastName;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return this.isAccountNonExpired;

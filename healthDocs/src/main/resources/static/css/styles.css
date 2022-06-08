@@ -1,0 +1,308 @@
+body{
+    background-image: linear-gradient(to right, #EAF4F9, #C9E3F2);
+    color: #1D577A;
+    margin: 8px;
+}
+.logo{
+    font-family: "Georgia-BoldItalic", sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    padding-left: 50px;
+    padding-top: 40px;
+    margin-top: -0px;
+    float: left;
+    color: white;
+}
+#naslov{
+    padding-top: 100px;
+    padding-left: 220px;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Times New Roman", serif;
+    font-weight: bold;
+}
+#naslov2{
+    padding-top: 30px;
+    padding-left: -30px;
+    font-size: 25px;
+    text-align: center;
+    font-family: "Times New Roman", serif;
+}
+.button {
+    background-color: #1D577A;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 30px;
+}
+.button1 {
+    background-color: white;
+    color: #1D577A;
+    border: 2px solid #1D577A;
+    margin-left: 450px;
+}
+.button1:hover {
+    background-color: #1D577A;
+    color: white;
+}
+.button2 {
+    background-color: white;
+    color: #1D577A;
+    border: 2px solid #1D577A;
+}
+
+.button2:hover {
+    background-color: #1D577A;
+    color: white;
+}
+.meni{
+    background-color:  #1D577A;
+    height: 130px;
+}
+#date-div{
+    color: white;
+    padding-top:100px;
+    margin-left: 1200px;
+    position: absolute;
+    font-size: 20px;
+}
+.vl {
+    border-left: 6px solid red;
+    height: 560px;
+    margin-left:200px;
+    float:left;
+    margin-top: -10px;
+}
+.slika{
+    float: left;
+    margin-left: -180px;
+    width: 150px;
+    margin-top: 90px;
+}
+#linija{
+    margin-left: 200px;
+    margin-top: 0;
+    border-top: 8px solid red;
+}
+.vnesete{
+    margin-left: 250px;
+    margin-top: 5px;
+    font-size: 35px;
+    font-family: "Times New Roman", serif;
+}
+#vert{
+    margin-top: -85px;
+}
+#slika1{
+    margin-top: 331px;
+}
+.container {
+    margin-top: 40px;
+}
+
+.btn-primary {
+    width: 100%;
+}
+.linija1{
+    border-top: 8px solid red;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#lokacija{
+    /*float: left;*/
+    margin-top: -280px;
+    margin-left: 310px;
+    font-size: 16px;
+}
+#termin{
+    width: 500px;
+    margin-left: -165px;
+    /*float: left;*/
+    margin-top: 180px;
+    position: relative;
+    font-size: 16px;
+}
+#pole{
+    height: 45px;
+}
+
+select {
+    width: 150px;
+    padding: 10px;
+}
+#pacient{
+    margin-top: 20px;
+    float: left;
+    padding-left: 110px;
+    font-size: 16px;
+}
+#doctor{
+    margin-top: 110px;
+    float: left;
+    margin-left: -150px;
+    font-size: 16px;
+}
+.input-group-addon{
+    padding-top: -5px;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+    float: left;
+    margin-left: 40px;
+    margin-top: 30px;
+    font-size: 20px;
+
+}
+th, td {
+    text-align: left;
+    padding: 15px;
+}
+tr:nth-child(even){
+    background-color: #C9E3F2;
+}
+th {
+    background-color: #1D577A;
+    color: #EAF4F9;
+}
+#tekst{
+    font-size: 25px;
+    font-family: "Times New Roman", sans-serif;
+    float: left;
+    margin-left: 45px;
+}
+#korisnickoIme{
+    margin-top: 20px;
+    float: left;
+    padding-left: 110px;
+    font-size: 16px;
+}
+#pass{
+    margin-top: 130px;
+    margin-left: 320px;
+    font-size: 16px;
+    position: absolute;
+}
+#pime{
+    margin-top: 70px;
+    margin-left: 900px;
+    font-size: 16px;
+    position: absolute;
+}
+.prezime{
+    margin-left: 35px;
+}
+#pprezime{
+    margin-top: 125px;
+    margin-left: 900px;
+    position: absolute;
+}
+#pembg{
+    margin-top: 185px;
+    margin-left: 900px;
+    position: absolute;
+}
+.opcija1{
+    margin-left: 80px;
+}
+.opcija2{
+    margin-left: 30px;
+}
+#radio{
+    position: absolute;
+    margin-left: 320px;
+    margin-top: 220px;
+}
+.embg{
+    margin-left: 63px;
+}
+.ime{
+    margin-left: 70px;
+}
+.pomesti{
+    margin-left: 60px;
+}
+.uredi{
+    height: 40px;
+    width: 300px;
+}
+#kopce{
+    float: left;
+    margin-top: 20px;
+    margin-left: 660px;
+    background-color: ghostwhite;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #1D577A;
+}
+.kopce1{
+    float: left;
+    margin-top: 250px;
+    margin-left: -140px;
+    background-color: ghostwhite;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: #1D577A;
+    border: 2px solid #1D577A;
+    width: auto;
+}
+#kopce2{
+    float: left;
+    margin-top: -60px;
+    margin-left: 800px;
+    background-color: ghostwhite;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #1D577A;
+}
+.kopce3{
+    float: left;
+    margin-top: 250px;
+    margin-left: 420px;
+    background-color: ghostwhite;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: #1D577A;
+    border: 2px solid #1D577A;
+    width: auto;
+}
+#kopce4{
+    float: left;
+    margin-top: 40px;
+    margin-left: 520px;
+    background-color: ghostwhite;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #1D577A;
+}
+.lok{
+    margin-left: 315px;
+    margin-top: 10px;
+}

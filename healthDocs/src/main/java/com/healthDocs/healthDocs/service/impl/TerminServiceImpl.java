@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +43,18 @@ public class TerminServiceImpl implements TerminService {
         return this.terminRepository.findAll().stream().filter(x->x.getPatient().getId()==patientId).collect(Collectors.toList());
 
     }
-	@Override
+
+    @Override
+    public Optional<Termin> findById(Long terminId) {
+        return this.terminRepository.findById(terminId);
+    }
+
+    @Override
+    public Termin save(Termin termin) {
+        return this.terminRepository.save(termin);
+    }
+
+    @Override
 	public Termin getById(Long Id) {
 		return this.terminRepository.getOne(Id);
 	}

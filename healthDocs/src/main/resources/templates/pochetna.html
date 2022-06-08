@@ -1,48 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>HealthDocs</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <!--   <link rel="stylesheet" href="../static/css/styles.css">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почетна</title>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
+</head>
 
+<body>
+    <nav class="navbar bg-dark py-2">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center pt-5">
+                <h1 class="h1 text-center w-75">Добредојдовте на веб порталот за закажување и преглед на здравствени термини</h1>
+            </div>
+        </div>
+		<div class="row">
+            <div class="col d-flex justify-content-center pt-5">
+                <span class="text-center w-75 fs-3">Одберете ја улогата со која сакате да се најавите на системот:</span>
+            </div>
+        </div>
+		<div class="row">
+			<div class="col d-flex justify-content-center">
+				<div class="my-5">
+					<a th:href="@{/patient/login}" class="btn btn-primary btn-lg mx-2">Пациент</a>
+					<a th:href="@{/doctor/login}" class="btn btn-primary btn-lg mx-2">Доктор</a>
+					<a th:href="@{/admin/login}" class="btn btn-primary btn-lg mx-2">Администратор</a>
+				</div>
+			</div>
+		</div>
+    </div>
+</body>
 
-       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-       <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-       <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-   </head>
-   <body>
-   <hr class="linija1" size="8" width="100%"  color="red">
-   <div class="meni">
-
-       <h1 class="logo">HealthDocs</h1>
-       <div id="date-div"></div>
-   </div>
-   <hr class="linija1" size="8" width="100%"  color="red">
-
-   <div class="vl"></div>
-   <h1 id="naslov">Добредојдовте на веб порталот за закажување <br/> и преглед на здравствени термини</h1>
-   <br/>
-   <h2 id="naslov2">Одберете ја улогата со која сакате да се најавите на системот:</h2>
-   <button class="button button1" onclick="location.href='http://localhost/patient/login'" type="button">
-       Пациент</button>
-   <button class="button button2" onclick="location.href='https://localhost/doctor/login'" type="button">
-       Доктор</button>
-   <button class="button button2" onclick="location.href='https://localhost/admin/login'" type="button">
-       Администратор</button>
-   <img class="slika" src="../images/slika.jpg" alt="slika">
-   </body>
-   </html>
-   <script type="text/javascript">
-       const dateDiv = document.getElementById('date-div');
-
-       function myDateFunction() {
-           const now = new Date();
-           const nowStr = now.toLocaleString('ru-RU');
-           dateDiv.innerHTML = nowStr;
-       }
-       setInterval(myDateFunction, 1000);
-   </script>
+</html>
