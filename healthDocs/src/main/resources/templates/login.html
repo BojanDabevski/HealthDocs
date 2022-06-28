@@ -4,54 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Најава</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
 
-        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
     <!--  <link rel="stylesheet" href="../static/css/styles.css">-->
 
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-  </head>
-  <body>
-  <hr class="linija1" size="8" width="100%" color="red">
-  <div class="meni">
-      <a href="pochetna.html">
-          <h1 class="logo">HealthDocs</h1></a>
-      <div id="date-div"></div>
-  </div>
-  <hr class="linija1" size="8" width="100%"  color="red">
-  <h2 class="vnesete">Најава на системот</h2>
-  <hr id="linija" size="8" width="86%" color="red">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<hr class="linija1" size="8" width="100%" color="red">
+<div class="meni">
+    <a href="pochetna.html">
+        <h1 class="logo">HealthDocs</h1></a>
+    <div id="date-div"></div>
+</div>
 
-  <div class="vl" id="vert"></div>
-  <img class="slika" id="slika1" src="../images/slika.jpg" alt="slika">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-  <p id="tekst">Најавете се на системот со внесување на вашите корисничко име и лозинка:</p>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
-  <form method="post" action="/login">
-      <div id="korisnickoIme">
-          <br/>
-          <label>Корисничко име</label>
-          <label for="username" class="sr-only">Корисничко име</label>
-          <input type="text" id="username" name="username"  placeholder="Корисничко име" required=""
-                 autofocus="" class="uredi">
-      </div>
-      <div id="pass">
-          <br/>
-          <label for="password" >Лозинка</label>
-          <input type="password" id="password" name="password" placeholder="Лозинка"
-                 required="" class="uredi pomesti">
-      </div>
-
-      <div th:text="${param.error}" class="text-danger"></div>
-
-      <button id="submit" class="btn btn-lg btn-primary btn-block kopce1" type="submit">Најави се</button>
-
-
-  </form>
-
-  </body>
-  </html>
+<div class="container">
+    <hr>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Log In</h4>
+            <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="Корисничко име" type="text">
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Лозинка" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Најава</button>
+                </div> <!-- form-group// -->
+            </form>
+        </article>
+    </div> <!-- card.// -->
+</div>
