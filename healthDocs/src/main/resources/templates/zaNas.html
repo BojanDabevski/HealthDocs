@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почетна</title>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
+</head>
+
+<body>
+    <nav class="navbar bg-dark py-2">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center mt-5 card card-body bg-light">
+                Со оглед дека денес секој живее живот со брзо темпо и самото време е ресурс и е ценето, трошејќи го на шалтери во медицинска институција не е најдобра употреба на сечие време. Ние бевме инспирирани од овие тешкотии да создадеме наша веб апликација што треба да ги реши овие проблеми.
+                “HealthDocs” е веб апликација што им помага на сите да добијат пристап до нивната медицинска историја многу лесно, и исто да закажат и направат термини. Направена е со цел да се намали изгубеното време чекајќи на информациското биро за да се земе вашата медицинска историја, здраствено осигурување, рецепта, итн. Со употреба на оваа апликација би требало секој да може да ги добие овие документи и да закажува термини со притискање на неколку копчиња.
+                <br/>
+                <br/>
+                Considering that today everyone lives life at a fast pace and that time itself is a commodity and is valued, wasting it while waiting at the counters at medical institutions is not the best use of everyone's time. We were inspired by these difficulties to create our web application that should solve these problems.
+                “HealthDocs” is a web application that helps everyone get access to their medical history very easily, and also schedule and create appointments. It is created in order to cut the time lost waiting at the information desk in order to get your medical history, health insurance, prescription etc. With the use of this application everyone should be able to get these documents and make appointments with the clicks of a couple of buttons.
+            </div>
+
+            <span th:text="'© ' + ${#dates.format(#dates.createNow(), 'yyyy')} + ' HealthDocs'"/>
+        </div>
+    </div>
+</body>
+
+</html>

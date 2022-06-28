@@ -11,4 +11,9 @@ public class IndexController {
     public String getIndex(){
         return "pochetna";
     }
+
+    @GetMapping(value="/about")
+    public String about(){
+        return "zaNas";
+    }
 }
