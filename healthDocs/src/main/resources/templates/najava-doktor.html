@@ -11,28 +11,45 @@
 </head>
 
 <body>
-    <nav class="navbar bg-dark py-2">
-        <div class="container-fluid">
-            <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="d-flex justify-content-center mt-3">
-            <form th:action="@{/doctor/login}" method="post" class="w-50">
-                <div class="text-center mt-2 mb-4">
-                    <h2>Најава на системот за доктори</h2>
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Корисничко име</label>
-                    <input type="text" class="form-control" id="username" name="username">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Лозинка</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 mt-4">Најави се</button>
-            </form>
-        </div>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
     </div>
+</nav>
+<div id="date-div"></div>
+</div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<div class="container">
+    <hr>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Log In - Доктор</h4>
+            <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="Корисничко име" type="text">
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Лозинка" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Најава</button>
+                </div> <!-- form-group// -->
+            </form>
+        </article>
+    </div> <!-- card.// -->
+</div>
+
 </body>
 </html>

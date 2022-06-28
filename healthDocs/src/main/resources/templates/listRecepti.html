@@ -2,17 +2,11 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прикажи рецепти</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <!--  <link rel="stylesheet" href="../static/css/styles.css">-->
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 <hr class="linija1" size="8" width="100%" color="red">
@@ -21,7 +15,7 @@
         <h1 class="logo">HealthDocs</h1></a>
     <div id="date-div"></div>
 </div>
-<hr class="linija1" size="8" width="100%"  color="red">
+<hr class="linija1" size="8" width="100%" color="red">
 <h2 class="vnesete">Приказ на издадени рецепти на доктор</h2>
 <hr id="linija" size="8" width="86%" color="red">
 
@@ -50,8 +44,11 @@
             <td th:text="${termin.getTermin()}"></td>
             <td th:text="${termin.getNalog()}"></td>
             <td th:text="${termin.getUpat()}"></td>
-            <td><a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a></td>
-            <td><a th:href="@{'https://localhost/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}">Edit</a></td>
+            <td><a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a>
+            </td>
+            <td>
+                <a th:href="@{'https://localhost/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}">Edit</a>
+            </td>
         </tr>
     </th:block>
 </table>
@@ -68,6 +65,7 @@
         const now = new Date();
         dateDiv.innerHTML = now.toLocaleString('ru-RU');
     }
+
     setInterval(myDateFunction, 1000);
 </script>
 <script>
@@ -75,4 +73,3 @@
         $('#datetimepicker1').datetimepicker();
     });
 </script>
-

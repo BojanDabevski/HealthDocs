@@ -3,71 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрација</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
 
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
     <!--   <link rel="stylesheet" href="../static/css/styles.css">-->
 
-       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-       <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-       <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-   </head>
-   <body>
-   <hr class="linija1" size="8" width="100%" color="red">
-   <div class="meni">
-       <a href="http://localhost">
-           <h1 class="logo">HealthDocs</h1></a>
-       <div id="date-div"></div>
-   </div>
-   <hr class="linija1" size="8" width="100%"  color="red">
-   <h2 class="vnesete">Регистрирање на системот за пациенти</h2>
-   <hr id="linija" size="8" width="86%" color="red">
-
-   <div class="vl" id="vert"></div>
-   <img class="slika" id="slika1" src="../images/slika.jpg" alt="slika">
-
-   <p id="tekst">Пополнете ги наведените полиња со цел да се регистрирате на системот за е - лекување:</p>
-   <form method="post" action="">  <!--smeni akcija-->
-    <div id="korisnickoIme">
-        <br/>
-        <label for="username">Корисничко име</label>
-        <input type='text' id="username" name="username" class="uredi"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
     </div>
-    <div id="pass">
-        <br/>
-        <label for="password">Лозинка</label>
-        <input class="uredi pomesti" type='password'  id="password" name="password"/>
-    </div>
-    <div id="pime">
-        <br/>
-        <label>Име</label>
-        <input  type='text' class="uredi ime" name="ime"/>
-    </div>
-    <div id="pprezime">
-        <br/>
-        <label>Презиме</label>
-        <input  type='text' class="uredi prezime" name="prezime"/>
-    </div>
-    <div id="pembg">
-        <br/>
-        <label>ЕМБГ</label>
-        <input class="uredi embg" required pattern="^d{13}$"/>
-    </div>
-    <div id="radio">
-        <label>Опции</label>
-        <input type="radio" class="opcija1" name="opcii" value="opcija1">
-        <label>Опција1</label>
-        <input type="radio" class="opcija2" name="opcii" value="opcija2">
-        <label>Опција2</label><br>
-    </div>
+</nav>
+<div id="date-div"></div>
 
 
-    <button id="submit" class="btn btn-lg btn-primary btn-block kopce3" type="submit">Најави се</button>
-</form>
-</body>
-</html>
+<!--   registration form-->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+<div class="container">
+    <br>
+    <p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/">
+        Bootstrap-ecommerce.com</a></p>
+    <hr>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            <p class="text-center">Get started with your free account</p>
+            <p>
+                <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via
+                    facebook</a>
+            </p>
+            <p class="divider-text">
+                <span class="bg-light">OR</span>
+            </p>
+            <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="Full name" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="Email address" type="email">
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="EMBG" type="email">
+                </div>
+                <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                    </div>
+                    <select class="custom-select" style="max-width: 120px;">
+                        <option selected="">+381</option>
+                    </select>
+                    <input name="" class="form-control" placeholder="Phone number" type="text">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                    </div>
+                    <select class="form-control">
+                        <option selected=""> Select account type</option>
+                        <option>Doctor</option>
+                        <option>Nurse</option>
+                        <option>Admin</option>
+                        <!--                           ovie mozhe da se vlechat od negde-->
+                    </select>
+                </div> <!-- form-group end.// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Create password" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Repeat password" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Create Account</button>
+                </div> <!-- form-group// -->
+                <p class="text-center">Have an account? <a href="">Log In</a></p>
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
 <script type="text/javascript">
     const dateDiv = document.getElementById('date-div');
 
@@ -75,6 +122,7 @@
         const now = new Date();
         dateDiv.innerHTML = now.toLocaleString('ru-RU');
     }
+
     setInterval(myDateFunction, 1000);
 </script>
 <script>
