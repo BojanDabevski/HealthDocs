@@ -26,6 +26,7 @@ public class Termin {
     public Termin(){
 
     }
+    
     public TerminType getTerminType() {
         return type;
     }
@@ -72,4 +73,20 @@ public class Termin {
     public void setLocation(String location) {
         this.location = location;
     }
+
+	public TerminType getType() {
+		return type;
+	}
+
+	public void setType(TerminType type) {
+		this.type = type;
+	}
+
+	public void setDoctor(User doctor) {
+		this.doctor = doctor;
+	}
+
+	public void setPatient(User patient) {
+		this.patient = patient;
+	}
 }

@@ -4,6 +4,9 @@ import com.healthDocs.healthDocs.model.Role;
 import com.healthDocs.healthDocs.model.User;
 import com.healthDocs.healthDocs.repository.UserRepository;
 import com.healthDocs.healthDocs.service.UserService;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +31,8 @@ public class UserServiceImpl implements UserService {
         }
         if(this.userRepository.findByUsername(username).isPresent() || !this.userRepository.findByUsername(username).isEmpty())
             return null;
-        User user=new User(EMBG,username,password,firstName,lastName,role,insurance);
+        String encodedPassword = passwordEncoder.encode(password);
+        User user=new User(EMBG,username,encodedPassword,firstName,lastName,role,insurance);
         return this.userRepository.save(user);
     }
 
@@ -36,6 +40,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(s).orElseThrow(()->new UsernameNotFoundException(s));
+    }
+    
+    //odkomentiraj PostConstruct za da se kreiraat svezi akounti pri nareden startup na sistemot
+    //@PostConstruct
+    public void registerTestUsers() {
+    	register("testDoctor","test123","test123","Test","Test","1234567890123",Role.ROLE_DOCTOR,true);
+    	register("testPatient","test123","test123","Test","Test","1234567890123",Role.ROLE_PATIENT,true);
+    	register("testAdmin","test123","test123","Test","Test","1234567890123",Role.ROLE_ADMIN,true);
+
     }
 
 
