@@ -1,8 +1,10 @@
 package com.healthDocs.healthDocs.web;
 
 
+import com.healthDocs.healthDocs.exceptions.InvalidArgumentsException;
 import com.healthDocs.healthDocs.model.Termin;
 import com.healthDocs.healthDocs.repository.UserRepository;
+import com.healthDocs.healthDocs.service.PendingPatientService;
 import com.healthDocs.healthDocs.service.TerminService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,7 @@ private final UserRepository userRepository;
     public PatientController(TerminService terminService,UserRepository userRepository) {
         this.terminService=terminService;
         this.userRepository=userRepository;
+       
     }
 
     @GetMapping(value = "/login")
@@ -38,16 +41,15 @@ private final UserRepository userRepository;
         request.getSession().invalidate();
         return "redirect:/patient/login";
     }
-    @GetMapping(value="/register")
-    public String register(Model model){
-        return "registracija";
-    }
+    
     
     
 
 
+    
+    
+   
     @GetMapping(value="/termini")
-
     public String getTerminiPage(@RequestParam(required = false) String error, Model model){
         if(error != null && !error.isEmpty()){
             model.addAttribute("hasError",true);

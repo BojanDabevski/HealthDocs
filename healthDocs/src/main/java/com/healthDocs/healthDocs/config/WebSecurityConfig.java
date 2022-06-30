@@ -29,7 +29,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable()
                     .authorizeRequests()
                     .antMatchers("/", "/about", "/doctor", "/doctor/**", "/css/**", "/images/**", "/data/**",
-                            "/js/**", "/h2", "/h2/**", "/bootstrap-5.2.0-beta1-dist/**").permitAll()
+                            "/js/**", "/h2", "/h2/**", "/bootstrap-5.2.0-beta1-dist/**","/register").permitAll()
                     .antMatchers("/patient/**").hasRole("PATIENT")
                     .anyRequest()
                     .authenticated()
