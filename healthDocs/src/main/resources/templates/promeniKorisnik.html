@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информации за корисник</title>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.3/bootbox.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        /* Remove Arrows/Spinners */
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</span>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center text-center mt-3">
+            <h4 class="w-75">Информации за корисник</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center mt-3">
+                <form th:action="@{/admin/saveUser}" method="post" class="w-50">
+                    <input type="hidden" name="id" id="id" th:value="${user.getId()}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Корисничко име</label>
+                        <input type="text" class="form-control"
+                               id="username" name="username" th:value="${user.getUsername()}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Име</label>
+                        <input type="text" class="form-control"
+                               id="name" name="name" th:value="${user.getFirstName()}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Презиме</label>
+                        <input type="text" class="form-control"
+                               id="surname" name="surname" th:value="${user.getLastName()}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="embg" class="form-label">ЕМБГ</label>
+                        <input type="number" class="form-control"
+                               id="embg" name="embg" th:value="${user.getEMBG()}">
+                    </div>
+                    <!-- Checkbox -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="checkbox" name="insurance"
+                                   id="insurance" th:checked="${user.getInsurance()}">
+                            <label class="form-check-label" for="insurance">Осигурување</label>
+                        </div>
+                    </div>
+                    <th:block th:if="${isAdmin}">
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Улога</label>
+                            <select class="form-select" name="role" id="role" th:value="${user.getRole()}">
+                                <option th:each="role : ${roles}"
+                                        th:value="${role.toString()}" th:text='${role.toString()}'></option>
+                            </select>
+                        </div>
+                    </th:block>
+                    <!-- Checkbox -->
+                    <button type="submit" class="btn btn-primary w-100 mt-4">Зачувај</button>
+                    <th:block th:if="${isAdmin}">
+                        <button class="btn btn-danger w-100 mt-4" id="deleteUser">Избриши корисник</button>
+                    </th:block>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:if="${isAdmin}">
+    <script>
+        $('#role').val($('#role').attr('value'));
+        $('#deleteUser').click(function (event) {
+            event.preventDefault();
+            bootbox.confirm({
+                message: "Дали сте сигурни дека сакате да го избришете корисникот?",
+                closeButton: false,
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-secondary'
+                    }
+                },
+                callback: removeUserCallback
+            });
+        });
+
+        function removeUserCallback(confirmClicked) {
+            if (confirmClicked) {
+                const dialog = bootbox.dialog({
+                    message: '<p><i class="fa fa-spin fa-spinner">' +
+                        '</i> Испратена е акција за бришење на корисник...</p>'
+                });
+
+                const userId = $('#id').val();
+                $.post(`/admin/deleteUser?id=${userId}`, function () {
+                    dialog.init(function(){
+                        dialog.find('.bootbox-body').html('Корисникот е успешно избришан');
+                        setTimeout(function(){
+                            location.href = `/admin/panel`;
+                        }, 3000);
+                    });
+                })
+                .fail(function () {
+                    dialog.init(function(){
+                        dialog.find('.bootbox-body').html('Грешка при бришење на корисникот');
+                    });
+                });
+            }
+        }
+    </script>
+</th:block>
+</html>
