@@ -29,7 +29,6 @@
         <th>Количина/Доза</th>
         <th>Име на лек</th>
         <th>Генеричко име на лек</th>
-        <th>Термин на кој бил издаден</th>
         <th>Налог</th>
         <th>Упат</th>
     </tr>
@@ -39,9 +38,8 @@
             <td th:text="${recept.getPatient().getFirstName()}"></td>
             <td th:text="${recept.getPatient().getLastName()}"></td>
             <td th:text="${recept.getAmount()}"></td>
-            <td th:text="${termin.getNameOfDrug()}"></td>
-            <td th:text="${termin.getGenericNameOfDrug()}"></td>
-            <td th:text="${termin.getTermin()}"></td>
+            <td th:text="${recept.getNameOfDrug()}"></td>
+            <td th:text="${recept.getGenericNameOfDrug()}"></td>
             <td th:text="${termin.getNalog()}"></td>
             <td th:text="${termin.getUpat()}"></td>
             <td><a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a>

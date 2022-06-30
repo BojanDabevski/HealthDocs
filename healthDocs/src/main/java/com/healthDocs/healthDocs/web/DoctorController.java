@@ -1,11 +1,13 @@
 package com.healthDocs.healthDocs.web;
 import com.healthDocs.healthDocs.exceptions.InvalidArgumentsException;
 import com.healthDocs.healthDocs.exceptions.NoSuchUserException;
+import com.healthDocs.healthDocs.model.Recept;
 import com.healthDocs.healthDocs.model.Role;
 import com.healthDocs.healthDocs.model.Termin;
 import com.healthDocs.healthDocs.model.TerminType;
 import com.healthDocs.healthDocs.model.User;
 import com.healthDocs.healthDocs.repository.UserRepository;
+import com.healthDocs.healthDocs.service.ReceptService;
 import com.healthDocs.healthDocs.service.TerminService;
 import org.dom4j.rule.Mode;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,12 +27,14 @@ public class DoctorController {
     private final TerminService terminService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ReceptService receptService;
     private TerminType type;
 
-    public DoctorController(TerminService terminService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DoctorController(TerminService terminService, UserRepository userRepository, PasswordEncoder passwordEncoder,ReceptService receptService) {
         this.terminService = terminService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.receptService = receptService;
     }
 
 //    @GetMapping(value = "/login")
@@ -192,6 +196,22 @@ public class DoctorController {
         return "redirect:/doctor/termini";
 
     }
+    
+    @GetMapping(value = "/doctor/recept")
+    public String getDoctorRecept(Model model, HttpServletRequest request) {
+    	User user = (User) request.getSession().getAttribute("doctor");
+        if (user == null) {
+            return "redirect:/doctor/login";
+        }
+        final Long doctorId = userRepository.findByUsername(user.getUsername()).get().getId();
+        List<Recept> terminList = this.receptService.findBySetByDoctorId(doctorId);
+
+        //List<Termin> terminList=this.terminService.listAll();
+        model.addAttribute("receptList", terminList);
+        return "listRecepti";
+    }
+    
+    
 
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request) {
