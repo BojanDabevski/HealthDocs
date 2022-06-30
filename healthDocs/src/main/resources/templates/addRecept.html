@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додади термин</title>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/flatpickr/flatpickr.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/flatpickr/flatpickr.js}"></script>
+</head>
+
+<body>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        <div class="d-flex me-4">
+            <a th:href="@{/logout}" class="btn btn-outline-info">Одјави се</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center text-center mt-3">
+            <h4 th:unless="${editMode}" class="w-75">Закажете рецепт:</h4>
+            <h4 th:if="${editMode}" class="w-75">Променете рецепт:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center mt-3">
+                <!--==============================================================================================================-->
+                <th:block th:if="${editMode}">
+                    <form th:action="@{/doctor/recept/editRecept}" method="post" class="w-50">
+                        <div class="mb-3">
+                            <label for="patientId" class="form-label">Пациент</label>
+                            <select disabled class="form-select" name="patientId" id="patientId">
+                                <option th:value="${receptData.getPatient().getId()}"
+                                        th:text="${receptData.getPatient().getEmbgAndFullName()}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="termin" class="form-label">Внесете датум на издавање на рецепт</label>
+                            <input th:value="${receptData.getTermin()}" type="text" class="form-control bg-white" id="termin" name="termin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Внесете доза</label>
+                            <input th:value="${receptData.getAmount()}" type="text" class="form-control" id="amount" name="amount">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameDrug" class="form-label">Внесете име на лек</label>
+                            <input th:value="${receptData.getNameOfDrug()}" type="text" class="form-control" id="nameDrug" name="nameDrug">
+                        </div>
+                        <div class="mb-3">
+                            <label for="genericNameDrug" class="form-label">Внесете генеричко име на лек</label>
+                            <input th:value="${receptData.getGenericNameOfDrug()}" type="text" class="form-control" id="genericNameDrug" name="genericNameDrug">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nalog" class="form-label">Внесете налог</label>
+                            <input th:value="${receptData.getNalog()}" type="text" class="form-control" id="nalog" name="nalog">
+                        </div>
+                        <div class="mb-3">
+                            <label for="upat" class="form-label">Внесете упат</label>
+                            <input th:value="${receptData.getUpat()}" type="text" class="form-control" id="upat" name="upat">
+                        </div>
+                        <input type="hidden" name="receptID" th:value="${receptData.getId()}">
+                        <button type="submit" class="btn btn-success w-100 mt-4">Додади рецепт</button>
+                    </form>
+                </th:block>
+                <!--==============================================================================================================-->
+                <th:block th:unless="${editMode}">
+                    <form th:action="@{/doctor/recept/add}" method="post" class="w-50">
+                        <div class="mb-3">
+                            <label for="patientId" class="form-label">Пациент</label>
+                            <select class="form-select" name="patientId" id="patientId">
+                                <option selected disabled>-- Изберете пациент --</option>
+                                <th:block th:each="patient : ${patients}">
+                                    <option th:if="${patient} != null"
+                                            th:value="${patient.getId()}"
+                                            th:text="${patient.getEmbgAndFullName()}"
+                                    ></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+
+                        
+                        <div class="mb-3">
+                            <label for="termin" class="form-label">Внесете датум на издавање на рецепт</label>
+                            <input  type="text" class="form-control bg-white" id="termin" name="termin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Внесете доза</label>
+                            <input  type="text" class="form-control" id="amount" name="amount">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameDrug" class="form-label">Внесете име на лек</label>
+                            <input  type="text" class="form-control" id="nameDrug" name="nameDrug">
+                        </div>
+                        <div class="mb-3">
+                            <label for="genericNameDrug" class="form-label">Внесете генеричко име на лек</label>
+                            <input  type="text" class="form-control" id="genericNameDrug" name="genericNameDrug">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nalog" class="form-label">Внесете налог</label>
+                            <input  type="text" class="form-control" id="nalog" name="nalog">
+                        </div>
+                        <div class="mb-3">
+                            <label for="upat" class="form-label">Внесете упат</label>
+                            <input  type="text" class="form-control" id="upat" name="upat">
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success w-100 mt-4">Додади рецепт</button>
+                    </form>
+                </th:block>
+                <!--==============================================================================================================-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $("#date").flatpickr({
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        time_24hr: true,
+        minDate: "today"
+    });
+</script>
+</html>
