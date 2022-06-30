@@ -7,21 +7,19 @@
     <title>Прикажи термин</title>
     <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
     <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
-    <body>
-    <hr class="linija1" size="8" width="100%" color="red">
-    <div class="meni">
-        <a href="http://localhost">
-            <h1 class="logo">HealthDocs</h1></a>
-        <div id="date-div"></div>
+</head>
+<body>
+<nav class="navbar bg-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        <div class="d-flex me-4">
+            <a th:href="@{/patient/logout}" class="btn btn-outline-info">Одјави се</a>
+        </div>
     </div>
-    <hr class="linija1" size="8" width="100%" color="red">
-    <h2 class="vnesete">Приказ на закажани термини на пациент</h2>
-    <hr id="linija" size="8" width="86%" color="red">
-
-    <div class="vl" id="vert"></div>
-    <img class="slika" id="slika1" src="../images/slika.jpg" alt="slika">
-
-    <table>
+</nav>
+<div class="container">
+    <h2 class="pt-2 pb-4">Приказ на закажани термини на пациент</h2>
+    <table class="table table-striped">
         <tr>
             <th>ID на доктор</th>
             <th>Име на доктор</th>
@@ -32,21 +30,25 @@
 
         </tr>
         <th:block th:each="termin : ${terminList}">
-        <tr>
-            <td th:text="${termin.getDoctor().getId()}"></td>
-            <td th:text="${termin.getDoctor().getFirstName()}"></td>
-            <td th:text="${termin.getDoctor().getLastName()}"></td>
-            <td th:text="${termin.getDateAndTime()}"></td>
-            <td th:text="${termin.getLocation()}"></td>
-            <td th:text="${termin.getTerminType()}"></td>
-            <td><a th:href="@{'http://localhost/patient/termin/deleteTermin?terminID={id}' (id=${termin.getId()})}">Delete</a></td>
-           <!-- <td><a th:href="@{'http://localhost/patient/termin/editTermin?terminID={id}' (id=${termin.getId()})}">Edit</a></td> -->
-        </tr>
+            <tr>
+                <td th:text="${termin.getDoctor().getId()}"></td>
+                <td th:text="${termin.getDoctor().getFirstName()}"></td>
+                <td th:text="${termin.getDoctor().getLastName()}"></td>
+                <td th:text="${termin.getDateAndTime()}"></td>
+                <td th:text="${termin.getLocation()}"></td>
+                <td th:text="${termin.getTerminType()}"></td>
+                <td><a th:href="@{'http://localhost/patient/termin/deleteTermin?terminID={id}' (id=${termin.getId()})}">Delete</a></td>
+                <!-- <td><a th:href="@{'http://localhost/patient/termin/editTermin?terminID={id}' (id=${termin.getId()})}">Edit</a></td> -->
+            </tr>
         </th:block>
     </table>
 
 
-    <a href="http://localhost/patient/logout"><input type="submit" value="Одјави се" id="kopce2" style="margin-top: 30px"></a>
+
+</div>
+
+
+
 
     </body>
     </html>
