@@ -8,6 +8,7 @@ import com.healthDocs.healthDocs.service.ReceptService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,4 +52,14 @@ public class ReceptServiceImpl implements ReceptService {
         return this.receptRepository.findAll().stream().filter(x->x.getPatient().getId()==terminId).collect(Collectors.toList());
 
     }
+
+	@Override
+	public Optional<Recept> findById(Long Id) {
+		return this.receptRepository.findById(Id);
+	}
+
+	@Override
+	public Recept save(Recept save) {
+		return this.receptRepository.save(save);
+	}
 }

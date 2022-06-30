@@ -40,8 +40,8 @@
             <td th:text="${recept.getAmount()}"></td>
             <td th:text="${recept.getNameOfDrug()}"></td>
             <td th:text="${recept.getGenericNameOfDrug()}"></td>
-            <td th:text="${termin.getNalog()}"></td>
-            <td th:text="${termin.getUpat()}"></td>
+            <td th:text="${recept.getNalog()}"></td>
+            <td th:text="${recept.getUpat()}"></td>
             <td><a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a>
             </td>
             <td>

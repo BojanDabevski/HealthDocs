@@ -197,7 +197,7 @@ public class DoctorController {
 
     }
     
-    @GetMapping(value = "/doctor/recept")
+    @GetMapping(value = "/recept")
     public String getDoctorRecept(Model model, HttpServletRequest request) {
     	User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
@@ -210,6 +210,108 @@ public class DoctorController {
         model.addAttribute("receptList", terminList);
         return "listRecepti";
     }
+    @GetMapping(value = "/recept/deleteRecept")
+    public String deleteRecept(@RequestParam(required = true) Long receptID, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("doctor");
+        List<Recept> recepti = this.receptService
+                .findBySetByDoctorId(user.getId()).stream().filter(x -> x.getId() == receptID)
+                .collect(Collectors.toList()); // check if Termin belongs to doctor
+        if (recepti.isEmpty()) {
+            //termin doesn't belong to doctor
+        } else {
+            this.receptService.deleteById(receptID);
+
+        }
+        return "redirect:/doctor/recept";
+
+    }
+    
+    @GetMapping("/recept/editRecept")
+    public String getEditRecept(@RequestParam Long receptID, HttpServletRequest request, Model model) {
+        User user = (User) request.getSession().getAttribute("doctor");
+        if (user == null) {
+            return "redirect:/doctor/login";
+        }
+
+        Optional<Recept> findRecept = this.receptService.findById(receptID);
+        if (!findRecept.isPresent()) {
+            return "redirect:/doctor/recept";
+        }
+
+        Recept recept = findRecept.get();
+        model.addAttribute("editMode", true);
+        model.addAttribute("receptData", recept);
+
+        return "addRecept";
+    }
+    
+    @PostMapping("/recept/editRecept")
+    public String postEditRecept(@RequestParam Long receptID,
+                                 @RequestParam String amount,
+                                 @RequestParam String nameOfDrug,
+                                 @RequestParam String genericNameOfDrug,
+                                 HttpServletRequest request)
+    {
+        User user = (User) request.getSession().getAttribute("doctor");
+        if (user == null) {
+            return "redirect:/doctor/login";
+        }
+
+        Optional<Recept> findRecept = this.receptService.findById(receptID);
+        if (!findRecept.isPresent()) {
+            return "redirect:/doctor/termini";
+        }
+
+        Recept recept = findRecept.get();
+        
+        this.receptService.save(recept);
+
+        recept.setAmount(amount);
+        recept.setGenericNameOfDrug(genericNameOfDrug);
+        recept.setNameOfDrug(genericNameOfDrug);
+        
+        return "redirect:/doctor/termini";
+    }
+    
+    @GetMapping(value = "/recept/add")
+    public String getAddReceptiPage(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("doctor");
+        if (user == null) {
+            return "redirect:/doctor/login";
+        }
+        List<User> patients =
+                this.userRepository.findAll()
+                .stream()
+                .filter(x -> x.getRole().equals(Role.ROLE_PATIENT))
+                .collect(Collectors.toList());
+                //.filter(x -> x.getRole().toString().equals("ROLE_PATIENT"))
+        model.addAttribute("patients", patients);
+        model.addAttribute("terminType", TerminType.values());
+        model.addAttribute("editMode", false);
+
+        return "addRecept";
+    }
+    
+    @PostMapping(value = "/recept/add")
+    public String postAddRecept(@RequestParam Long userID,
+    		                    @RequestParam Long terminID,
+                                 @RequestParam String amount,
+                                 @RequestParam String nameOfDrug,
+                                 @RequestParam String genericNameOfDrug,
+                                 HttpServletRequest request)
+    {
+        User user = (User) request.getSession().getAttribute("doctor");
+        if (user == null) {
+            return "redirect:/doctor/login";
+        }
+
+        User patient = this.userRepository.findById(userID).get();
+        Termin termin = this.terminService.getById(terminID);
+        this.receptService.createRecept(user, patient, termin, amount, genericNameOfDrug, genericNameOfDrug, nameOfDrug, genericNameOfDrug);
+
+        return "redirect:/doctor/recept";
+    }
+
     
     
 
