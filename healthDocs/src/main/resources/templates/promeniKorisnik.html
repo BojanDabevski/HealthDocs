@@ -29,7 +29,7 @@
 <body>
 <nav class="navbar bg-dark py-2">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</span>
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
     </div>
 </nav>
 <div class="container">
@@ -125,8 +125,8 @@
                     dialog.init(function(){
                         dialog.find('.bootbox-body').html('Корисникот е успешно избришан');
                         setTimeout(function(){
-                            location.href = `/admin/panel`;
-                        }, 3000);
+                            location.href = localStorage.getItem('activeTab');
+                        }, 2000);
                     });
                 })
                 .fail(function () {

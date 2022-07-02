@@ -1,7 +1,10 @@
 package com.healthDocs.healthDocs.web;
 
+import com.healthDocs.healthDocs.model.PendingPatient;
+import com.healthDocs.healthDocs.model.PendingStatus;
 import com.healthDocs.healthDocs.model.Role;
 import com.healthDocs.healthDocs.model.User;
+import com.healthDocs.healthDocs.repository.PendingPatientRepository;
 import com.healthDocs.healthDocs.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminPanelController {
 
     private final UserRepository userRepository;
-    public AdminPanelController(UserRepository userRepository) {
+    private final PendingPatientRepository pendingPatientRepository;
+    public AdminPanelController(UserRepository userRepository, PendingPatientRepository pendingPatientRepository) {
         this.userRepository = userRepository;
+        this.pendingPatientRepository = pendingPatientRepository;
     }
 
     @GetMapping("/userDetails")
@@ -41,7 +45,7 @@ public class AdminPanelController {
         // Proveri dali korisnikot postoi
         Optional<User> user = this.userRepository.findById(id);
         if (!user.isPresent()) {
-            return "redirect:/admin/panel";
+            return "redirect:/admin/panel?view=all";
         }
 
         model.addAttribute("user", user.get());
@@ -73,9 +77,36 @@ public class AdminPanelController {
             newUser.setInsurance(insurance1);
             newUser.setRole(role);
             this.userRepository.save(newUser);
-            return "redirect:/admin/panel";
+            return "redirect:/admin/panel?view=all";
         }
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel?view=all";
+    }
+
+    @PostMapping("/pendingUser")
+    public ResponseEntity<String> managePendingUser(@RequestParam Long id, @RequestParam PendingStatus status) {
+        Optional<PendingPatient> findPendingPatient = this.pendingPatientRepository.findById(id);
+        if (!findPendingPatient.isPresent()) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("User doesn't exist");
+        }
+
+        PendingPatient p = findPendingPatient.get();
+        if (status == PendingStatus.DENY) {
+            this.pendingPatientRepository.delete(p);
+            return ResponseEntity.ok("Pending patient denied");
+        }
+
+        if (status == PendingStatus.APPROVE) {
+            User user = new User(p.getEMBG(), p.getUsername(), p.getPassword(), p.getFirstName(),
+                    p.getLastName(), Role.ROLE_PATIENT, p.getInsurance());
+
+            this.userRepository.save(user);
+            this.pendingPatientRepository.delete(p);
+            return ResponseEntity.ok("Pending patient approved");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
     }
 
     @PostMapping("/deleteUser")

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Почетна</title>
+    <title>Админ контроли</title>
     <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
+    <script th:src="@{/bootstrap-5.2.0-beta1-dist/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
 </head>
 
@@ -13,6 +14,9 @@
 <nav class="navbar bg-dark py-2">
     <div class="container-fluid">
         <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        <div class="d-flex me-4">
+            <a th:href="@{/admin/logout}" class="btn btn-outline-info">Одјави се</a>
+        </div>
     </div>
 </nav>
 <div class="container-fluid">
@@ -22,11 +26,20 @@
     <div class="row">
         <div class="col-3">
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">All users</a>
-                <a href="#" class="list-group-item list-group-item-action">Pending</a>
-                <a href="#" class="list-group-item list-group-item-action">Doctors</a>
-                <a href="#" class="list-group-item list-group-item-action">Patients</a>
+                <a href="/admin/panel?view=all" id="all"
+                   class="list-group-item list-group-item-action">All users</a>
+                <a href="/admin/panel?view=pending" id="pending"
+                   class="list-group-item list-group-item-action">Pending</a>
+                <a href="/admin/panel?view=doctors" id="doctors"
+                   class="list-group-item list-group-item-action">Doctors</a>
+                <a href="/admin/panel?view=patients" id="patients"
+                   class="list-group-item list-group-item-action">Patients</a>
             </div>
+            <script>
+                const params = new URLSearchParams(window.location.search).get("view");
+                document.getElementById(params).classList.add("active");
+                localStorage.setItem('activeTab', location.pathname + location.search);
+            </script>
         </div>
         <div class="col-9">
             <table class="table table-striped">
@@ -36,7 +49,9 @@
                     <th scope="col">Surname</th>
                     <th scope="col">Username</th>
                     <th scope="col">EMBG</th>
-                    <th scope="col">Role</th>
+                    <th:block th:unless="${pending}">
+                        <th scope="col">Role</th>
+                    </th:block>
                     <th></th>
                 </tr>
                 </thead>
@@ -48,12 +63,26 @@
                         <td th:text="${user.getLastName()}"></td>
                         <td th:text="${user.getUsername()}"></td>
                         <td th:text="${user.getEMBG()}"></td>
-                        <td th:text="${user.getRole().toString()}"></td>
-                        <td>
-                            <a th:href="@{'/admin/userDetails?id={id}' (id=${user.getId()})}"
-                               class="btn btn-primary"
-                            >Edit</a>
-                        </td>
+
+                        <th:block th:unless="${pending}">
+                            <td th:text="${user.getRole().toString()}"></td>
+                            <td>
+                                <a th:href="@{'/admin/userDetails?id={id}' (id=${user.getId()})}"
+                                   class="btn btn-secondary"
+                                >Edit</a>
+                            </td>
+                        </th:block>
+                        <th:block th:if="${pending}">
+                            <td th:id="${user.getId()}">
+                                <button class="btn btn-success" onclick="pendingResponse(this, 'APPROVE')">
+                                    Approve
+                                </button>
+                                <button class="btn btn-danger" onclick="pendingResponse(this, 'DENY')">
+                                    Deny
+                                </button>
+                            </td>
+                        </th:block>
+
                     </tr>
                 </th:block>
                 </tbody>
@@ -62,5 +91,17 @@
     </div>
 </div>
 </body>
-
+<th:block th:if="${pending}">
+    <script>
+        function pendingResponse(el, status) {
+            const userId = el.parentElement.id;
+            $.post(`/admin/pendingUser?id=${userId}&status=${status}`, function () {
+                $(el.parentElement.parentElement).remove();
+            })
+            .fail(function () {
+                throw new Error("Error while trying to update pending user's status");
+            });
+        }
+    </script>
+</th:block>
 </html>

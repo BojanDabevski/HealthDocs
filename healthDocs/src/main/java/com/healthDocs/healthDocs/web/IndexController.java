@@ -39,7 +39,7 @@ public class IndexController {
     	String EMBG = request.getParameter("EMBG");
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
-    	String firstName = request.getParameter("lastName");
+    	String firstName = request.getParameter("firstName");
     	String lastName = request.getParameter("lastName");
     	String insurance = request.getParameter("insurance");
     	Boolean insuranceBool = false;
