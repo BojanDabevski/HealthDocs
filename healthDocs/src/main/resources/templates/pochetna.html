@@ -10,37 +10,42 @@
 </head>
 
 <body>
-    <nav class="navbar bg-dark py-2">
-        <div class="container-fluid">
-            <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a th:href="@{/about}" class="nav-link text-secondary">За нас</a>
-                </li>
-            </ul>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav text-white">
+                <a class="nav-link" th:href="@{/about}">За нас</a>
+                <a class="nav-link" th:href="@{/register}">Регистрирај се</a>
+            </div>
         </div>
-    </nav>
+    </div>
+</nav>
     <div class="container">
         <div class="row">
             <div class="col d-flex justify-content-center pt-5">
-                <h1 class="h1 text-center w-75">Добредојдовте на веб порталот за закажување и преглед на здравствени термини</h1>
+                <h1 class="h1 text-center w-75">Добредојдовте на веб порталот за закажување и преглед на здравствени
+                    термини</h1>
             </div>
         </div>
-		<div class="row">
+        <div class="row">
             <div class="col d-flex justify-content-center pt-5">
                 <span class="text-center w-75 fs-3">Одберете ја улогата со која сакате да се најавите на системот:</span>
             </div>
         </div>
-		<div class="row">
-			<div class="col d-flex justify-content-center">
-				<div class="my-5">
-					<a th:href="@{/patient/login}" class="btn btn-primary btn-lg mx-2">Пациент</a>
-					<a th:href="@{/doctor/login}" class="btn btn-primary btn-lg mx-2">Доктор</a>
-					<a th:href="@{/admin/login}" class="btn btn-primary btn-lg mx-2">Администратор</a>
-				</div>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="my-5">
+                    <a th:href="@{/patient/login}" class="btn btn-primary btn-lg mx-2">Пациент</a>
+                    <a th:href="@{/doctor/login}" class="btn btn-primary btn-lg mx-2">Доктор</a>
+                    <a th:href="@{/admin/login}" class="btn btn-primary btn-lg mx-2">Администратор</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-
 </html>

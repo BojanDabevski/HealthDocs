@@ -9,7 +9,6 @@ import com.healthDocs.healthDocs.model.User;
 import com.healthDocs.healthDocs.repository.UserRepository;
 import com.healthDocs.healthDocs.service.ReceptService;
 import com.healthDocs.healthDocs.service.TerminService;
-import org.dom4j.rule.Mode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -294,7 +293,7 @@ public class DoctorController {
     
     @PostMapping(value = "/recept/add")
     public String postAddRecept(@RequestParam Long userID,
-    		                    @RequestParam Long terminID,
+                                @RequestParam Long terminID,
                                  @RequestParam String amount,
                                  @RequestParam String nameOfDrug,
                                  @RequestParam String genericNameOfDrug,

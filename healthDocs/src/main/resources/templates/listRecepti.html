@@ -1,73 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прикажи рецепти</title>
+    <title>Рецепти</title>
     <link rel="stylesheet" th:href="@{/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css}">
     <script th:src="@{/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js}"></script>
 </head>
+
 <body>
-<hr class="linija1" size="8" width="100%" color="red">
-<div class="meni">
-    <a href="http://localhost">
-        <h1 class="logo">HealthDocs</h1></a>
-    <div id="date-div"></div>
-</div>
-<hr class="linija1" size="8" width="100%" color="red">
-<h2 class="vnesete">Приказ на издадени рецепти на доктор</h2>
-<hr id="linija" size="8" width="86%" color="red">
-
-<div class="vl" id="vert"></div>
-<img class="slika" id="slika1" src="../images/slika.jpg" alt="slika">
-<table>
-    <tr>
-        <th>ID на пациент</th>
-        <th>Име на пациент</th>
-        <th>Презиме на пациент</th>
-        <th>Количина/Доза</th>
-        <th>Име на лек</th>
-        <th>Генеричко име на лек</th>
-        <th>Налог</th>
-        <th>Упат</th>
-    </tr>
-    <th:block th:each="recept : ${receptList}">
-        <tr>
-            <td th:text="${recept.getPatient().getId()}"></td>
-            <td th:text="${recept.getPatient().getFirstName()}"></td>
-            <td th:text="${recept.getPatient().getLastName()}"></td>
-            <td th:text="${recept.getAmount()}"></td>
-            <td th:text="${recept.getNameOfDrug()}"></td>
-            <td th:text="${recept.getGenericNameOfDrug()}"></td>
-            <td th:text="${recept.getNalog()}"></td>
-            <td th:text="${recept.getUpat()}"></td>
-            <td><a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a>
-            </td>
-            <td>
-                <a th:href="@{'https://localhost/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}">Edit</a>
-            </td>
-        </tr>
-    </th:block>
-</table>
-<a href="https://localhost/doctor/recept/add"><input type="submit" value="Додади рецепт" id="kopce4"></a>
-
-<a href="https://localhost/doctor/logout"><input type="submit" value="Одјави се" id="kopce2"></a>
-
+    <nav class="navbar bg-dark py-2">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="navbar-brand mb-0 ms-4 h1 text-light">HealthDocs</a>
+            <div class="d-flex me-4">
+                <a th:href="@{/doctor/logout}" class="btn btn-outline-info">Одјави се</a>
+            </div>
+            <div class="d-flex me-4">
+                <a th:href="@{/doctor/termini}" class="btn btn-outline-info">Термини</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Main body -->
+    <div class="container">
+        <h2 class="pt-2 pb-4">Приказ на рецепти</h2>
+        <div>
+            <a class="btn btn-success mb-2" th:href="@{/doctor/recept/add}">Додади рецепт</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID на пациент</th>
+                    <th>Име на пациент</th>
+                    <th>Презиме на пациент</th>
+                    <th>Количина / Доза</th>
+                    <th>Име на лек</th>
+                    <th>Генеричко име на лек</th>
+                    <th>Налог</th>
+                    <th>Упат</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="recept : ${receptList}">
+                    <tr>
+                        <td th:text="${recept.getPatient().getId()}"></td>
+                        <td th:text="${recept.getPatient().getFirstName()}"></td>
+                        <td th:text="${recept.getPatient().getLastName()}"></td>
+                        <td th:text="${recept.getAmount()}"></td>
+                        <td th:text="${recept.getNameOfDrug()}"></td>
+                        <td th:text="${recept.getGenericNameOfDrug()}"></td>
+                        <td th:text="${recept.getNalog()}"></td>
+                        <td th:text="${recept.getUpat()}"></td>
+                        <td>
+                            <a th:href="@{'https://localhost/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}"
+                               class="btn btn-warning">Edit</a>
+                            <a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})} "
+                               class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
-<script type="text/javascript">
-    const dateDiv = document.getElementById('date-div');
-
-    function myDateFunction() {
-        const now = new Date();
-        dateDiv.innerHTML = now.toLocaleString('ru-RU');
-    }
-
-    setInterval(myDateFunction, 1000);
-</script>
-<script>
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
-    });
-</script>

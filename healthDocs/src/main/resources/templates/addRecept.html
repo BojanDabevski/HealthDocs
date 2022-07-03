@@ -35,8 +35,8 @@
                 <th:block th:if="${editMode}">
                     <form th:action="@{/doctor/recept/editRecept}" method="post" class="w-50">
                         <div class="mb-3">
-                            <label for="patientId" class="form-label">Пациент</label>
-                            <select disabled class="form-select" name="patientId" id="patientId">
+                            <label for="userID" class="form-label">Пациент</label>
+                            <select disabled class="form-select" name="userID" id="userID">
                                 <option th:value="${receptData.getPatient().getId()}"
                                         th:text="${receptData.getPatient().getEmbgAndFullName()}"
                                 ></option>
@@ -75,8 +75,8 @@
                 <th:block th:unless="${editMode}">
                     <form th:action="@{/doctor/recept/add}" method="post" class="w-50">
                         <div class="mb-3">
-                            <label for="patientId" class="form-label">Пациент</label>
-                            <select class="form-select" name="patientId" id="patientId">
+                            <label for="userID" class="form-label">Пациент</label>
+                            <select disabled class="form-select" name="userID" id="userID">
                                 <option selected disabled>-- Изберете пациент --</option>
                                 <th:block th:each="patient : ${patients}">
                                     <option th:if="${patient} != null"
@@ -86,9 +86,6 @@
                                 </th:block>
                             </select>
                         </div>
-
-
-
                         <div class="mb-3">
                             <label for="termin" class="form-label">Внесете датум на издавање на рецепт</label>
                             <input  type="text" class="form-control bg-white" id="termin" name="termin">
@@ -114,7 +111,6 @@
                             <input  type="text" class="form-control" id="upat" name="upat">
                         </div>
 
-
                         <button type="submit" class="btn btn-success w-100 mt-4">Додади рецепт</button>
                     </form>
                 </th:block>
@@ -125,7 +121,7 @@
 </div>
 </body>
 <script>
-    $("#date").flatpickr({
+    $("#termin").flatpickr({
         enableTime: true,
         dateFormat: "d/m/Y H:i",
         time_24hr: true,

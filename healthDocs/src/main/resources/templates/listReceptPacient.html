@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,34 +24,38 @@
 <div class="container">
     <h2 class="pt-2 pb-4">Приказ на доделени рецепти на пациент</h2>
     <table class="table table-striped">
-    <tr>
-        <th>ID на пациент</th>
-        <th>Име на пациент</th>
-        <th>Презиме на пациент</th>
-        <th>Количина/Доза</th>
-        <th>Име на лек</th>
-        <th>Генеричко име на лек</th>
-        <th>Термин на кој бил издаден</th>
-        <th>Налог</th>
-        <th>Упат</th>
-    </tr>
-    <th:block th:each="recept : ${receptList}">
+        <thead>
         <tr>
-            <td th:text="${recept.getPatient().getId()}"></td>
-            <td th:text="${recept.getPatient().getFirstName()}"></td>
-            <td th:text="${recept.getPatient().getLastName()}"></td>
-            <td th:text="${recept.getAmount()}"></td>
-            <td th:text="${termin.getNameOfDrug()}"></td>
-            <td th:text="${termin.getGenericNameOfDrug()}"></td>
-            <td th:text="${termin.getTermin()}"></td>
-            <td th:text="${termin.getNalog()}"></td>
-            <td th:text="${termin.getUpat()}"></td>
-            <td><a th:href="@{'https://localhost/patient/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a></td>
-
+            <th>ID на пациент</th>
+            <th>Име на пациент</th>
+            <th>Презиме на пациент</th>
+            <th>Количина/Доза</th>
+            <th>Име на лек</th>
+            <th>Генеричко име на лек</th>
+            <th>Термин на кој бил издаден</th>
+            <th>Налог</th>
+            <th>Упат</th>
+            <th></th>
         </tr>
-    </th:block>
-</table>
-
-
+        </thead>
+        <tbody>
+        <th:block th:each="recept : ${receptList}">
+            <tr>
+                <td th:text="${recept.getPatient().getId()}"></td>
+                <td th:text="${recept.getPatient().getFirstName()}"></td>
+                <td th:text="${recept.getPatient().getLastName()}"></td>
+                <td th:text="${recept.getAmount()}"></td>
+                <td th:text="${termin.getNameOfDrug()}"></td>
+                <td th:text="${termin.getGenericNameOfDrug()}"></td>
+                <td th:text="${termin.getTermin()}"></td>
+                <td th:text="${termin.getNalog()}"></td>
+                <td th:text="${termin.getUpat()}"></td>
+                <td>
+                    <a th:href="@{'https://localhost/patient/recept/deleteRecept?receptID={id}' (id=${recept.getId()})}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 </body>
 </html>
