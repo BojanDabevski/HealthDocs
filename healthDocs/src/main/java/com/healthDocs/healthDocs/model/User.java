@@ -121,4 +121,13 @@ public class User implements UserDetails {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+	public Boolean getInsurance() {
+		return insurance;
+	}
+	public void setInsurance(Boolean insurance) {
+		this.insurance = insurance;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }
