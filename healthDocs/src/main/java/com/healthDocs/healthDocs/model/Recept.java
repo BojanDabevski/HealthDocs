@@ -1,8 +1,10 @@
 package com.healthDocs.healthDocs.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 //- model recepta(doza, ime na lek, genericko ime na lek, nalog,upat…)(ist princip na termin)
 @Data
@@ -15,21 +17,22 @@ public class Recept {
     private User doctor;
     @OneToOne
     private User patient;
-    @OneToOne
-    private Termin termin;
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+    private LocalDateTime dateAndTime;
     private String amount;
     private String nameOfDrug;
     private String genericNameOfDrug;
     private String nalog;
     private String upat;
-    public Recept(){
+
+    public Recept() {
 
     }
-    public Recept(User doctor, User patient,Termin termin,String amount,String nameOfDrug,String genericNameOfDrug,String nalog, String upat)
-    {
+
+    public Recept(User doctor, User patient, LocalDateTime dateAndTime, String amount, String nameOfDrug, String genericNameOfDrug, String nalog, String upat) {
         this.doctor = doctor;
         this.patient = patient;
-        this.termin = termin;
+        this.dateAndTime = dateAndTime;
         this.amount = amount;
         this.nameOfDrug = nameOfDrug;
         this.genericNameOfDrug = genericNameOfDrug;
@@ -37,6 +40,7 @@ public class Recept {
         this.upat = upat;
 
     }
+
     public User getDoctor() {
         return doctor;
     }
@@ -48,7 +52,6 @@ public class Recept {
     public Long getId() {
         return Id;
     }
-    public Termin getTermin() {return termin;}
 
     public void setId(Long id) {
         Id = id;
@@ -58,42 +61,47 @@ public class Recept {
         return amount;
     }
 
-    public String getNameOfDrug() {
-        return nameOfDrug;
-    }
-
-    public String getGenericNameOfDrug() {
-        return genericNameOfDrug;
-    }
-
-    public String getNalog() {
-        return nalog;
-    }
-
-    public String getUpat() {
-        return upat;
-    }
-
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getNameOfDrug() {
+        return nameOfDrug;
     }
 
     public void setNameOfDrug(String nameOfDrug) {
         this.nameOfDrug = nameOfDrug;
     }
 
+    public String getGenericNameOfDrug() {
+        return genericNameOfDrug;
+    }
+
     public void setGenericNameOfDrug(String genericNameOfDrug) {
         this.genericNameOfDrug = genericNameOfDrug;
+    }
+
+    public String getNalog() {
+        return nalog;
     }
 
     public void setNalog(String nalog) {
         this.nalog = nalog;
     }
 
+    public String getUpat() {
+        return upat;
+    }
+
     public void setUpat(String upat) {
         this.upat = upat;
     }
 
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
+    }
 
-
+    public void setDateAndTime(LocalDateTime dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
 }

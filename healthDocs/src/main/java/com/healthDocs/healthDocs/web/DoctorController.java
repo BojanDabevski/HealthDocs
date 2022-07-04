@@ -1,18 +1,19 @@
 package com.healthDocs.healthDocs.web;
+
 import com.healthDocs.healthDocs.exceptions.InvalidArgumentsException;
 import com.healthDocs.healthDocs.exceptions.NoSuchUserException;
-import com.healthDocs.healthDocs.model.Recept;
-import com.healthDocs.healthDocs.model.Role;
-import com.healthDocs.healthDocs.model.Termin;
-import com.healthDocs.healthDocs.model.TerminType;
-import com.healthDocs.healthDocs.model.User;
+import com.healthDocs.healthDocs.model.*;
 import com.healthDocs.healthDocs.repository.UserRepository;
 import com.healthDocs.healthDocs.service.ReceptService;
 import com.healthDocs.healthDocs.service.TerminService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,7 @@ public class DoctorController {
     private final ReceptService receptService;
     private TerminType type;
 
-    public DoctorController(TerminService terminService, UserRepository userRepository, PasswordEncoder passwordEncoder,ReceptService receptService) {
+    public DoctorController(TerminService terminService, UserRepository userRepository, PasswordEncoder passwordEncoder, ReceptService receptService) {
         this.terminService = terminService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -59,9 +60,8 @@ public class DoctorController {
             }
             User user = this.userRepository.findByUsername(username).get();
             // if (user != null && user.getRole().toString().equals("ROLE_DOCTOR")) {
-            if (    user != null && user.getRole().equals(Role.ROLE_DOCTOR) &&
-                    passwordEncoder.matches(password, user.getPassword()))
-            {
+            if (user != null && user.getRole().equals(Role.ROLE_DOCTOR) &&
+                    passwordEncoder.matches(password, user.getPassword())) {
                 request.getSession().setAttribute("doctor", user);
                 return "redirect:/doctor/termini";
             } else {
@@ -85,7 +85,7 @@ public class DoctorController {
             return "redirect:/doctor/login";
         }
         final Long doctorId = userRepository.findByUsername(user.getUsername()).get().getId();
-        List<Termin> terminList = this.terminService.findBySetByDoctorId(doctorId);
+        List <Termin> terminList = this.terminService.findBySetByDoctorId(doctorId);
 
         //List<Termin> terminList=this.terminService.listAll();
         model.addAttribute("terminList", terminList);
@@ -98,12 +98,12 @@ public class DoctorController {
         if (user == null) {
             return "redirect:/doctor/login";
         }
-        List<User> patients =
+        List <User> patients =
                 this.userRepository.findAll()
-                .stream()
-                .filter(x -> x.getRole().equals(Role.ROLE_PATIENT))
-                .collect(Collectors.toList());
-                //.filter(x -> x.getRole().toString().equals("ROLE_PATIENT"))
+                        .stream()
+                        .filter(x -> x.getRole().equals(Role.ROLE_PATIENT))
+                        .collect(Collectors.toList());
+        //.filter(x -> x.getRole().toString().equals("ROLE_PATIENT"))
         model.addAttribute("patients", patients);
         model.addAttribute("terminType", TerminType.values());
         model.addAttribute("editMode", false);
@@ -116,8 +116,7 @@ public class DoctorController {
                                  @RequestParam String date,
                                  @RequestParam String description,
                                  @RequestParam TerminType terminType,
-                                 HttpServletRequest request)
-    {
+                                 HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
@@ -139,7 +138,7 @@ public class DoctorController {
             return "redirect:/doctor/login";
         }
 
-        Optional<Termin> findTermin = this.terminService.findById(terminID);
+        Optional <Termin> findTermin = this.terminService.findById(terminID);
         if (!findTermin.isPresent()) {
             return "redirect:/doctor/termini";
         }
@@ -157,14 +156,13 @@ public class DoctorController {
                                  @RequestParam String date,
                                  @RequestParam String description,
                                  @RequestParam TerminType terminType,
-                                 HttpServletRequest request)
-    {
+                                 HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
         }
 
-        Optional<Termin> findTermin = this.terminService.findById(terminID);
+        Optional <Termin> findTermin = this.terminService.findById(terminID);
         if (!findTermin.isPresent()) {
             return "redirect:/doctor/termini";
         }
@@ -183,7 +181,7 @@ public class DoctorController {
     @GetMapping(value = "/termin/deleteTermin")
     public String deleteTermin(@RequestParam(required = true) Long terminID, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
-        List<Termin> termins = this.terminService
+        List <Termin> termins = this.terminService
                 .findBySetByDoctorId(user.getId()).stream().filter(x -> x.getId() == terminID)
                 .collect(Collectors.toList()); // check if Termin belongs to doctor
         if (termins.isEmpty()) {
@@ -195,24 +193,25 @@ public class DoctorController {
         return "redirect:/doctor/termini";
 
     }
-    
+
     @GetMapping(value = "/recept")
     public String getDoctorRecept(Model model, HttpServletRequest request) {
-    	User user = (User) request.getSession().getAttribute("doctor");
+        User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
         }
         final Long doctorId = userRepository.findByUsername(user.getUsername()).get().getId();
-        List<Recept> terminList = this.receptService.findBySetByDoctorId(doctorId);
+        List <Recept> terminList = this.receptService.findBySetByDoctorId(doctorId);
 
         //List<Termin> terminList=this.terminService.listAll();
         model.addAttribute("receptList", terminList);
         return "listRecepti";
     }
+
     @GetMapping(value = "/recept/deleteRecept")
     public String deleteRecept(@RequestParam(required = true) Long receptID, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
-        List<Recept> recepti = this.receptService
+        List <Recept> recepti = this.receptService
                 .findBySetByDoctorId(user.getId()).stream().filter(x -> x.getId() == receptID)
                 .collect(Collectors.toList()); // check if Termin belongs to doctor
         if (recepti.isEmpty()) {
@@ -224,7 +223,7 @@ public class DoctorController {
         return "redirect:/doctor/recept";
 
     }
-    
+
     @GetMapping("/recept/editRecept")
     public String getEditRecept(@RequestParam Long receptID, HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("doctor");
@@ -232,7 +231,7 @@ public class DoctorController {
             return "redirect:/doctor/login";
         }
 
-        Optional<Recept> findRecept = this.receptService.findById(receptID);
+        Optional <Recept> findRecept = this.receptService.findById(receptID);
         if (!findRecept.isPresent()) {
             return "redirect:/doctor/recept";
         }
@@ -243,76 +242,73 @@ public class DoctorController {
 
         return "addRecept";
     }
-    
+
     @PostMapping("/recept/editRecept")
     public String postEditRecept(@RequestParam Long receptID,
                                  @RequestParam String amount,
                                  @RequestParam String nameOfDrug,
                                  @RequestParam String genericNameOfDrug,
-                                 HttpServletRequest request)
-    {
+                                 HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
         }
 
-        Optional<Recept> findRecept = this.receptService.findById(receptID);
+        Optional <Recept> findRecept = this.receptService.findById(receptID);
         if (!findRecept.isPresent()) {
             return "redirect:/doctor/termini";
         }
 
         Recept recept = findRecept.get();
-        
+
         this.receptService.save(recept);
 
         recept.setAmount(amount);
         recept.setGenericNameOfDrug(genericNameOfDrug);
         recept.setNameOfDrug(genericNameOfDrug);
-        
+
         return "redirect:/doctor/termini";
     }
-    
+
     @GetMapping(value = "/recept/add")
     public String getAddReceptiPage(Model model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
         }
-        List<User> patients =
+        List <User> patients =
                 this.userRepository.findAll()
-                .stream()
-                .filter(x -> x.getRole().equals(Role.ROLE_PATIENT))
-                .collect(Collectors.toList());
-                //.filter(x -> x.getRole().toString().equals("ROLE_PATIENT"))
+                        .stream()
+                        .filter(x -> x.getRole().equals(Role.ROLE_PATIENT))
+                        .collect(Collectors.toList());
+        //.filter(x -> x.getRole().toString().equals("ROLE_PATIENT"))
         model.addAttribute("patients", patients);
         model.addAttribute("terminType", TerminType.values());
         model.addAttribute("editMode", false);
 
         return "addRecept";
     }
-    
+
     @PostMapping(value = "/recept/add")
     public String postAddRecept(@RequestParam Long userID,
-                                @RequestParam Long terminID,
-                                 @RequestParam String amount,
-                                 @RequestParam String nameOfDrug,
-                                 @RequestParam String genericNameOfDrug,
-                                 HttpServletRequest request)
-    {
+                                @RequestParam String date,
+                                @RequestParam String amount,
+                                @RequestParam String nameOfDrug,
+                                @RequestParam String genericNameOfDrug,
+                                HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
             return "redirect:/doctor/login";
         }
 
         User patient = this.userRepository.findById(userID).get();
-        Termin termin = this.terminService.getById(terminID);
-        this.receptService.createRecept(user, patient, termin, amount, genericNameOfDrug, genericNameOfDrug, nameOfDrug, genericNameOfDrug);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        LocalDateTime datum = LocalDateTime.parse(date, formatter);
+        this.receptService.createRecept(user, patient, datum, amount, genericNameOfDrug, genericNameOfDrug, nameOfDrug, genericNameOfDrug);
 
         return "redirect:/doctor/recept";
     }
 
-    
-    
 
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request) {

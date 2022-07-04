@@ -15,11 +15,13 @@ import java.util.stream.Collectors;
 @Service
 public class TerminServiceImpl implements TerminService {
     private TerminRepository terminRepository;
-    public TerminServiceImpl(TerminRepository terminRepository){
-        this.terminRepository=terminRepository;
+
+    public TerminServiceImpl(TerminRepository terminRepository) {
+        this.terminRepository = terminRepository;
     }
+
     @Override
-    public List<Termin> listAll() {
+    public List <Termin> listAll() {
         return this.terminRepository.findAll();
     }
 
@@ -30,22 +32,22 @@ public class TerminServiceImpl implements TerminService {
 
     @Override
     public void createTermin(User doctor, User patient, LocalDateTime dateTime, String location, TerminType type) {
-        this.terminRepository.save(new Termin(doctor,patient,dateTime,location,type));
+        this.terminRepository.save(new Termin(doctor, patient, dateTime, location, type));
     }
 
     @Override
-    public List<Termin> findBySetByDoctorId(Long doctorId) {
-        return this.terminRepository.findAll().stream().filter(x->x.getDoctor().getId()==doctorId).collect(Collectors.toList());
+    public List <Termin> findBySetByDoctorId(Long doctorId) {
+        return this.terminRepository.findAll().stream().filter(x -> x.getDoctor().getId() == doctorId).collect(Collectors.toList());
     }
 
     @Override
-    public List<Termin> findBySetForPatientId(Long patientId) {
-        return this.terminRepository.findAll().stream().filter(x->x.getPatient().getId()==patientId).collect(Collectors.toList());
+    public List <Termin> findBySetForPatientId(Long patientId) {
+        return this.terminRepository.findAll().stream().filter(x -> x.getPatient().getId() == patientId).collect(Collectors.toList());
 
     }
 
     @Override
-    public Optional<Termin> findById(Long terminId) {
+    public Optional <Termin> findById(Long terminId) {
         return this.terminRepository.findById(terminId);
     }
 
@@ -55,8 +57,8 @@ public class TerminServiceImpl implements TerminService {
     }
 
     @Override
-	public Termin getById(Long Id) {
-		return this.terminRepository.getOne(Id);
-	}
+    public Termin getById(Long Id) {
+        return this.terminRepository.getOne(Id);
+    }
 
 }

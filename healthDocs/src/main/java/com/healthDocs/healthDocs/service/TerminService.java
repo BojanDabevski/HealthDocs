@@ -9,12 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TerminService {
-    List<Termin> listAll();
+    List <Termin> listAll();
+
     void deleteById(Long Id);
+
     void createTermin(User doctor, User patient, LocalDateTime dateTime, String location, TerminType type);
+
     Termin getById(Long Id);
-    List<Termin> findBySetByDoctorId(Long doctorId);
-    List<Termin> findBySetForPatientId(Long patientId);
-    Optional<Termin> findById(Long terminId);
+
+    List <Termin> findBySetByDoctorId(Long doctorId);
+
+    List <Termin> findBySetForPatientId(Long patientId);
+
+    Optional <Termin> findById(Long terminId);
+
     Termin save(Termin termin);
 }
