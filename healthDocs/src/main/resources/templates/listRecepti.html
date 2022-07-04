@@ -53,9 +53,9 @@
                         <td th:text="${recept.getNalog()}"></td>
                         <td th:text="${recept.getUpat()}"></td>
                         <td>
-                            <a th:href="@{'https://localhost/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}"
+                            <a th:href="@{'/doctor/recept/editRecept?receptID={id}' (id=${recept.getId()})}"
                                class="btn btn-warning">Edit</a>
-                            <a th:href="@{'https://localhost/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})} "
+                            <a th:href="@{'/doctor/recept/deleteRecept?receptID={id}' (id=${recept.getId()})} "
                                class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

@@ -45,7 +45,7 @@
 
                         <div class="mb-3">
                             <label for="termin" class="form-label">Внесете датум на издавање на рецепт</label>
-                            <input th:value="${receptData.getTermin()}" type="text" class="form-control bg-white" id="termin" name="termin">
+                            <input disabled th:value="${receptData.getFormattedDateAndTime()}" type="text" class="form-control bg-white" id="termin" name="termin">
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Внесете доза</label>
@@ -61,11 +61,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="nalog" class="form-label">Внесете налог</label>
-                            <input th:value="${receptData.getNalog()}" type="text" class="form-control" id="nalog" name="nalog">
+                            <input disabled th:value="${receptData.getNalog()}" type="text" class="form-control" id="nalog" name="nalog">
                         </div>
                         <div class="mb-3">
                             <label for="upat" class="form-label">Внесете упат</label>
-                            <input th:value="${receptData.getUpat()}" type="text" class="form-control" id="upat" name="upat">
+                            <input disabled th:value="${receptData.getUpat()}" type="text" class="form-control" id="upat" name="upat">
                         </div>
                         <input type="hidden" name="receptID" th:value="${receptData.getId()}">
                         <button type="submit" class="btn btn-success w-100 mt-4">Додади рецепт</button>
@@ -76,7 +76,7 @@
                     <form th:action="@{/doctor/recept/add}" method="post" class="w-50">
                         <div class="mb-3">
                             <label for="userID" class="form-label">Пациент</label>
-                            <select disabled class="form-select" name="userID" id="userID">
+                            <select class="form-select" name="userID" id="userID">
                                 <option selected disabled>-- Изберете пациент --</option>
                                 <th:block th:each="patient : ${patients}">
                                     <option th:if="${patient} != null"

@@ -246,8 +246,8 @@ public class DoctorController {
     @PostMapping("/recept/editRecept")
     public String postEditRecept(@RequestParam Long receptID,
                                  @RequestParam String amount,
-                                 @RequestParam String nameOfDrug,
-                                 @RequestParam String genericNameOfDrug,
+                                 @RequestParam String nameDrug,
+                                 @RequestParam String genericNameDrug,
                                  HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
@@ -260,12 +260,10 @@ public class DoctorController {
         }
 
         Recept recept = findRecept.get();
-
-        this.receptService.save(recept);
-
         recept.setAmount(amount);
-        recept.setGenericNameOfDrug(genericNameOfDrug);
-        recept.setNameOfDrug(genericNameOfDrug);
+        recept.setGenericNameOfDrug(genericNameDrug);
+        recept.setNameOfDrug(nameDrug);
+        this.receptService.save(recept);
 
         return "redirect:/doctor/termini";
     }
@@ -291,10 +289,12 @@ public class DoctorController {
 
     @PostMapping(value = "/recept/add")
     public String postAddRecept(@RequestParam Long userID,
-                                @RequestParam String date,
+                                @RequestParam String termin,
                                 @RequestParam String amount,
-                                @RequestParam String nameOfDrug,
-                                @RequestParam String genericNameOfDrug,
+                                @RequestParam String nameDrug,
+                                @RequestParam String genericNameDrug,
+                                @RequestParam String nalog,
+                                @RequestParam String upat,
                                 HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("doctor");
         if (user == null) {
@@ -302,9 +302,10 @@ public class DoctorController {
         }
 
         User patient = this.userRepository.findById(userID).get();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        LocalDateTime datum = LocalDateTime.parse(date, formatter);
-        this.receptService.createRecept(user, patient, datum, amount, genericNameOfDrug, genericNameOfDrug, nameOfDrug, genericNameOfDrug);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime datum = LocalDateTime.parse(termin, formatter);
+        this.receptService.createRecept(user, patient, datum, amount, nameDrug,
+                genericNameDrug, nalog, upat);
 
         return "redirect:/doctor/recept";
     }

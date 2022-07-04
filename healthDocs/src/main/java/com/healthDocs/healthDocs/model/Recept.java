@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //- model recepta(doza, ime na lek, genericko ime na lek, nalog,upat…)(ist princip na termin)
 @Data
@@ -99,6 +100,11 @@ public class Recept {
 
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
+    }
+
+    public String getFormattedDateAndTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dateAndTime.format(formatter);
     }
 
     public void setDateAndTime(LocalDateTime dateAndTime) {
