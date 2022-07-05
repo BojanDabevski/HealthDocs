@@ -28,6 +28,11 @@ public class IndexController {
     public String about(){
         return "zaNas";
     }
+
+	@GetMapping(value = "/registerSuccess")
+	public String registerSuccess() {
+		return "uspesnaRegistracija";
+	}
     
     @GetMapping(value="/register")
     public String register(Model model){
@@ -61,7 +66,7 @@ public class IndexController {
     	
     	this.pendingPatientService.createPendingPatient(EMBG, username, password, firstName, lastName, insuranceBool);
     	
-    	return "redirect:/";
+    	return "redirect:/registerSuccess";
     	
     	
     }

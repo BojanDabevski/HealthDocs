@@ -82,7 +82,7 @@ private final UserRepository userRepository;
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Recept> receptList=this.receptService.findBySetForPatientId(userRepository.findByUsername(userDetails.getUsername()).get().getId());
-        
+
         //List<Termin> terminList=this.terminService.listAll();
         model.addAttribute("receptList",receptList);
         return "listReceptPacient";
